@@ -87,13 +87,12 @@ export const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
             
-            {/* Brand Logo & Anti-Gambling Badge */}
+            {/* Brand Logo */}
             <div className="flex items-center space-x-3">
               <div
                 id="brand-logo"
                 onClick={handleLogoTap}
-                className="cursor-pointer"
-                title="5x Tap Cepat untuk Akses Master Admin"
+                className="cursor-pointer select-none"
               >
                 <Link href="/" className="flex items-center space-x-2.5 group">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-amber-600 to-yellow-700 p-0.5 shadow-[0_0_15px_rgba(245,158,11,0.4)] group-hover:scale-105 transition">

@@ -70,9 +70,7 @@ export const AdminPinGate: React.FC<AdminPinGateProps> = ({ onUnlock }) => {
     }
   };
 
-  const handleQuickBypass = () => {
-    onUnlock();
-  };
+
 
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4 py-12">
@@ -119,8 +117,7 @@ export const AdminPinGate: React.FC<AdminPinGateProps> = ({ onUnlock }) => {
         >
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
-              <span>Masukkan PIN Master (6 Digit):</span>
-              <span className="text-[11px] font-mono text-purple-400">PIN: 060902</span>
+              <span>Masukkan PIN Master Otoritas:</span>
             </label>
             <div className="relative">
               <input
@@ -128,7 +125,7 @@ export const AdminPinGate: React.FC<AdminPinGateProps> = ({ onUnlock }) => {
                 maxLength={16}
                 autoFocus
                 disabled={lockoutRemaining > 0}
-                placeholder="••••"
+                placeholder="••••••"
                 value={pinInput}
                 onChange={(e) => setPinInput(e.target.value)}
                 className="w-full py-3.5 px-4 rounded-xl bg-[#05070B] border border-[#1E2D44] focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 text-center font-mono text-xl tracking-[0.4em] text-white placeholder:text-slate-600 outline-none transition disabled:opacity-50"
@@ -143,25 +140,10 @@ export const AdminPinGate: React.FC<AdminPinGateProps> = ({ onUnlock }) => {
             className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-purple-600/30 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Unlock className="w-4 h-4" />
-            <span>Buka Panel Admin</span>
+            <span>Verifikasi & Masuk</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </form>
-
-        {/* Quick Demo Bypass */}
-        <div className="pt-4 border-t border-[#1E2D44] text-center space-y-3">
-          <p className="text-[11px] text-slate-500">
-            Khusus Demonstrasi Edukasi & Pengujian Dosen/Reviewer:
-          </p>
-          <button
-            type="button"
-            onClick={handleQuickBypass}
-            className="w-full py-2.5 px-4 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 text-xs font-semibold flex items-center justify-center space-x-1.5 transition"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            <span>Akses Cepat (Bypass Demo 1-Klik)</span>
-          </button>
-        </div>
 
       </div>
     </div>

@@ -40,13 +40,10 @@ Setiap game dibuat dengan animasi dinamis, efek visual modern, dan mesin suara p
 
 ---
 
-## 🕵️ Panel Master Control (Tersembunyi)
+## 🕵️ Panel Master Control (Akses Terbatas Administrator)
 
-Panel kendali manipulasi probabilitas bandar dilindungi dan disembunyikan dari antarmuka publik:
-* 🔐 **Cara Masuk**:
-  1. Klik tombol **"Masuk"** di pojok kanan atas ➔ masukkan PIN **`060902`** (atau username `admin45`), ATAU
-  2. Tekan **5x Tap Cepat pada Logo J45** di header, ATAU
-  3. Tekan kombinasi tombol **`Ctrl + Shift + A`** di keyboard.
+Panel kendali manipulasi probabilitas bandar dilindungi sistem autentikasi keamanan khusus pengembang (*Administrator Only*).
+
 * 🎚️ **Slider RTP / Win Rate Global (0% – 100%)**:
   * Set ke **0%** ➔ Setiap putaran pemain dijamin **Pasti Rungkad/Kalah**.
   * Set ke **100%** ➔ Setiap putaran pemain dijamin **Pasti Menang/Jackpot** *(Fase Hook pemancing nafsu)*.
