@@ -1,11 +1,8 @@
 /**
- * Judoru45_Game - Central Rigged Algorithm Engine
+ * Judoru45_Game - Central Probability & Rigged Algorithm Engine
  * 
- * Implements genuine mathematical house-edge interceptors and behavioral rigging profiles
- * simulating predatory online gambling ("Judi Online") algorithms.
- * 
- * Educational Anti-Gambling Demonstration Engine
- * Author: Tri Wahyu (NIM 22518241023) - Universitas Negeri Yogyakarta
+ * Implements mathematical house-edge interceptors and behavioral profiles
+ * simulating real-world online casino game mechanics.
  */
 
 export type RiggedProfileType =

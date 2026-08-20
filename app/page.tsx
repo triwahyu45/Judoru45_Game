@@ -345,8 +345,8 @@ export default function HomePage() {
                   <GraduationCap className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-base font-black text-cyan-300">{lossEquivalents.find(i => i.id === 'ukt_uny')?.formattedCount || '0'}</div>
-                  <div className="text-[11px] text-slate-400">Bulan UKT Kuliah UNY</div>
+                  <div className="text-base font-black text-cyan-300">{lossEquivalents.find(i => i.id === 'ukt_ptn')?.formattedCount || '0'}</div>
+                  <div className="text-[11px] text-slate-400">Semester UKT Kuliah</div>
                 </div>
               </div>
 

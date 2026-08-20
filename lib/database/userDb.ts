@@ -38,9 +38,9 @@ const CURRENT_USER_KEY = 'judoru45_active_session_v1';
 // Initial dummy database seed (Contoh akun pemain untuk demonstrasi langsung)
 const SEED_USERS: UserAccount[] = [
   {
-    id: 'user_triwahyu_01',
-    username: 'triwahyu',
-    name: 'Tri Wahyu Handoyo',
+    id: 'user_vip_01',
+    username: 'slot_master88',
+    name: 'Hendrawan Wijaya',
     password: 'password123',
     balance: 500000,
     totalWagered: 150000,

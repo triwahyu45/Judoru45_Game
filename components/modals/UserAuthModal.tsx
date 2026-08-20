@@ -172,7 +172,7 @@ export const UserAuthModal: React.FC<UserAuthModalProps> = ({
                 <input
                   type="text"
                   required
-                  placeholder="Contoh: wahyu45"
+                  placeholder="Contoh: player_sultan88"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="w-full py-3 px-4 pl-10 rounded-xl bg-[#05070B] border border-[#1E2D44] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-sm text-white placeholder:text-slate-600 outline-none transition"
@@ -216,7 +216,7 @@ export const UserAuthModal: React.FC<UserAuthModalProps> = ({
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="Contoh: Tri Wahyu"
+                  placeholder="Contoh: Hendra Wijaya"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full py-2.5 px-4 pl-10 rounded-xl bg-[#05070B] border border-[#1E2D44] focus:border-amber-500 text-sm text-white placeholder:text-slate-600 outline-none transition"
@@ -233,7 +233,7 @@ export const UserAuthModal: React.FC<UserAuthModalProps> = ({
                 <input
                   type="text"
                   required
-                  placeholder="Contoh: wahyu_uny"
+                  placeholder="Contoh: zeus_hunter"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   className="w-full py-2.5 px-4 pl-10 rounded-xl bg-[#05070B] border border-[#1E2D44] focus:border-amber-500 text-sm text-white placeholder:text-slate-600 outline-none transition"

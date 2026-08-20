@@ -120,7 +120,7 @@ export const UserLoginModal: React.FC<UserLoginModalProps> = ({ isOpen, onClose 
             <div className="relative">
               <input
                 type="text"
-                placeholder="Contoh: Wahyu45"
+                placeholder="Contoh: player88"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full py-3 px-4 pl-10 rounded-xl bg-[#05070B] border border-[#1E2D44] focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 text-sm text-white placeholder:text-slate-600 outline-none transition"

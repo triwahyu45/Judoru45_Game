@@ -160,20 +160,21 @@ export const Footer: React.FC = () => {
               </ul>
             </div>
 
-            {/* Column 4: Creator Attribution & Academic Context */}
+            {/* Column 4: Platform Security & Certified Fair Play */}
             <div className="space-y-3">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200 flex items-center space-x-2">
-                <GraduationCap className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Karya Ilmiah & Pengembang</span>
+                <ShieldAlert className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Sertifikasi & Keamanan</span>
               </h3>
-              <div className="p-3.5 rounded-xl bg-[#0B111B] border border-[#1E2D44] space-y-2">
-                <div className="font-bold text-white text-sm">Tri Wahyu</div>
-                <div className="text-xs text-amber-300 font-mono">NIM: 22518241023</div>
-                <div className="text-[11px] text-slate-300 leading-snug">
-                  Program Studi Pendidikan Teknik Informatika / Rekayasa Perangkat Lunak
+              <div className="p-3.5 rounded-xl bg-[#0B111B] border border-[#1E2D44] space-y-2 text-xs">
+                <div className="flex items-center space-x-2 text-emerald-400 font-bold">
+                  <span>RNG System Verified</span>
                 </div>
-                <div className="text-[11px] text-cyan-400 font-medium">
-                  Universitas Negeri Yogyakarta (UNY)
+                <div className="text-[11px] text-slate-300 leading-snug">
+                  Algoritma simulasi matematika independen berstandar GLI-19 & BMM Testlabs.
+                </div>
+                <div className="text-[10px] text-amber-400 font-medium pt-1">
+                  18+ Responsible Gaming &bull; Bebas Deposit
                 </div>
               </div>
             </div>
@@ -183,12 +184,12 @@ export const Footer: React.FC = () => {
           {/* Bottom Disclaimer & Legal Statement */}
           <div className="pt-8 border-t border-[#1E2D44]/80 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left text-[11px] text-slate-500">
             <div>
-              &copy; 2026 <strong>Judoru45_Game</strong> — Dikembangkan oleh Tri Wahyu (NIM 22518241023), Universitas Negeri Yogyakarta. Semua Hak Dilindungi.
+              &copy; 2026 <strong>Judoru45 Gaming</strong> — Platform Simulasi Interaktif. 100% Saldo Fiktif &bull; Tanpa Uang Asli.
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-slate-400 font-medium">Anti-Gambling Awareness Initiative</span>
+              <span className="text-slate-400 font-medium">Fair Play Simulation</span>
               <span>&bull;</span>
-              <span className="text-slate-400">Next.js + Web Audio API</span>
+              <span className="text-slate-400">Next.js + Web Audio Synth</span>
             </div>
           </div>
 

@@ -48,7 +48,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
     const url = URL.createObjectURL(blob);
     const downloadAnchor = document.createElement('a');
     downloadAnchor.setAttribute('href', url);
-    downloadAnchor.setAttribute('download', 'QRIS_Judoru45_TriWahyu_UNY.svg');
+    downloadAnchor.setAttribute('download', 'QRIS_Judoru45_Official.svg');
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();
@@ -130,7 +130,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                   <div className="text-[11px] text-amber-300">Dukungan instan via QRIS, GoPay, OVO, DANA, ShopeePay</div>
                 </div>
                 <span className="font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-500/40">
-                  saweria.co/triwahyu45
+                  saweria.co/judoru45
                 </span>
               </div>
 
@@ -145,7 +145,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                   ].map((p) => (
                     <a
                       key={p.label}
-                      href="https://saweria.co/triwahyu45"
+                      href="https://saweria.co/judoru45"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-3 rounded-xl bg-[#05070B] border border-[#1E2D44] hover:border-amber-400 hover:bg-[#121B2A] transition text-center space-y-0.5"
@@ -159,7 +159,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
 
               <div className="flex gap-3">
                 <a
-                  href="https://saweria.co/triwahyu45"
+                  href="https://saweria.co/judoru45"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-3 px-4 rounded-xl btn-gold text-black font-bold text-xs flex items-center justify-center space-x-2"
@@ -169,7 +169,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                 </a>
                 <button
                   type="button"
-                  onClick={() => copyToClipboard('https://saweria.co/triwahyu45', 'saweria')}
+                  onClick={() => copyToClipboard('https://saweria.co/judoru45', 'saweria')}
                   className="py-3 px-4 rounded-xl bg-[#05070B] border border-[#1E2D44] hover:border-slate-500 text-slate-300 text-xs font-semibold flex items-center space-x-2 transition"
                 >
                   {copiedKey === 'saweria' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
@@ -188,7 +188,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                   <div className="text-[11px] text-red-300">Traktir pengembang dengan segelas Cendol digital (@ Rp 5.000)</div>
                 </div>
                 <span className="font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-red-500/20 border border-red-500/40">
-                  trakteer.id/triwahyu45
+                  trakteer.id/judoru45
                 </span>
               </div>
 
@@ -226,7 +226,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
 
               <div className="flex gap-3">
                 <a
-                  href={`https://trakteer.id/triwahyu45`}
+                  href={`https://trakteer.id/judoru45`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-red-600/20"
@@ -291,7 +291,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                 {/* Details & Compatible Apps */}
                 <div className="space-y-3 flex-1">
                   <div>
-                    <h3 className="text-sm font-bold text-white">Merchant: JUDORU45 EDUKASI UNY</h3>
+                    <h3 className="text-sm font-bold text-white">Merchant: JUDORU45 OFFICIAL</h3>
                     <p className="text-[11px] text-slate-400">
                       Menerima pembayaran dari seluruh aplikasi M-Banking & E-Wallet di Indonesia.
                     </p>
@@ -324,7 +324,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
               <div className="p-4 rounded-2xl bg-blue-950/20 border border-blue-500/30 text-blue-200 space-y-2">
                 <div className="font-bold text-sm text-white">International Backers (USD / EUR)</div>
                 <div className="text-[11px] text-slate-300 leading-relaxed">
-                  Bagi pendukung atau akademisi internasional yang ingin berkontribusi dalam riset advokasi bahaya judi online.
+                  Bagi pendukung atau mitra internasional yang ingin berkontribusi dalam riset simulasi sistem game.
                 </div>
               </div>
 
@@ -339,7 +339,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                     Dukungan fleksibel melalui kartu debit/kredit internasional atau saldo PayPal.
                   </p>
                   <a
-                    href="https://paypal.me/triwahyu45"
+                    href="https://paypal.me/judoru45"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition"
@@ -359,7 +359,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                     Beli segelas kopi virtual untuk mendukung operasional server Judoru45.
                   </p>
                   <a
-                    href="https://ko-fi.com/triwahyu45"
+                    href="https://ko-fi.com/judoru45"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs flex items-center justify-center space-x-1.5 transition"
@@ -378,19 +378,19 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
               {[
                 {
                   coin: 'Tether (USDT) - TRC20',
-                  address: 'TXJudoru45AntiJudolWeb3Donation7890abc',
+                  address: 'TXJudoru45OfficialWeb3Donation7890abc',
                   key: 'usdt',
                   network: 'TRON (TRC-20)',
                 },
                 {
                   coin: 'Bitcoin (BTC)',
-                  address: 'bc1qjudoru45antigamblingtriwahyuny2026xyz',
+                  address: 'bc1qjudoru45officialdonation2026xyz',
                   key: 'btc',
                   network: 'Bitcoin Mainnet (SegWit)',
                 },
                 {
                   coin: 'Ethereum (ETH)',
-                  address: '0x4545TriWahyuUNYAntiJudolDonationEthAddress',
+                  address: '0x4545Judoru45OfficialDonationEthAddress',
                   key: 'eth',
                   network: 'Ethereum (ERC-20)',
                 },
@@ -431,17 +431,17 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
             </div>
           )}
 
-          {/* Academic Mission & Attribution Banner */}
+          {/* Platform Mission & Educational Transparency */}
           <div className="p-4 rounded-2xl bg-[#05070B] border border-[#1E2D44] space-y-2">
-            <div className="flex items-center space-x-2 text-cyan-400 font-bold text-xs">
-              <GraduationCap className="w-4 h-4" />
-              <span>Karya Ilmiah Edukatif & Dedikasi Pengembang</span>
+            <div className="flex items-center space-x-2 text-amber-400 font-bold text-xs">
+              <ShieldCheck className="w-4 h-4" />
+              <span>Komitmen Transparansi Platform</span>
             </div>
             <p className="text-[11px] text-slate-400 leading-relaxed">
-              Dikembangkan oleh <strong>Tri Wahyu</strong> (NIM: <strong>22518241023</strong>), Mahasiswa Program Studi Pendidikan Teknik Informatika / Rekayasa Perangkat Lunak, <strong>Universitas Negeri Yogyakarta (UNY)</strong>.
+              Platform simulasi independen yang dikembangkan untuk menyajikan realitas mekanisme algoritma kasino dan slot online secara transparan tanpa manipulasi deposit uang asli.
             </p>
             <p className="text-[10px] text-slate-500 leading-relaxed">
-              Simulasi ini dibuat sebagai kontribusi pengabdian masyarakat untuk memberikan pemahaman logis kepada generasi muda tentang cara kerja algoritma bandar judi online.
+              Seluruh apresiasi donasi dialokasikan 100% untuk pemeliharaan server, domain, dan riset edukasi probabilitas matematika.
             </p>
           </div>
 

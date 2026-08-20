@@ -106,12 +106,11 @@ npm run build
 
 ---
 
-## 👨‍💻 Atribusi & Penulis
+## 📜 Lisensi & Hak Cipta
 
-Proyek ini dibangun sebagai inisiatif karya edukasi dan kesadaran sosial digital oleh:
+Proyek ini dirilis di bawah lisensi open-source **MIT License**. Terbuka untuk keperluan riset akademis, simulasi matematika, dan advokasi literasi digital nirlaba.
 
-* **Nama**: Tri Wahyu Handoyo
-* **Institusi**: Universitas Negeri Yogyakarta (UNY)
+* **Project**: Judoru45 Simulation Platform
 * **Repository**: [https://github.com/triwahyu45/Judoru45_Game](https://github.com/triwahyu45/Judoru45_Game)
 
 ---

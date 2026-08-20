@@ -5,23 +5,19 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
-  title: 'Judoru45 - Platform Simulasi Edukasi Anti Judi Online | Tri Wahyu UNY',
+  title: 'Judoru45 - Platform Simulasi Game & Kasino Online Terlengkap',
   description:
-    'Judoru45 adalah platform simulasi edukatif interaktif untuk membuktikan bagaimana algoritma judi online disetting bandar. 100% bebas uang asli dengan kontrol manipulasi admin & visualisasi kerugian riil.',
+    'Judoru45 adalah platform simulasi kasino online interaktif dengan 6 permainan terpopuler: Slot Olympus, Crash Rocket, European Roulette, Dadu, Togel 4D, dan Sportsbook.',
   keywords: [
-    'anti judi online',
-    'simulasi judi online',
     'judoru45',
-    'tri wahyu',
-    'uny',
-    'edukasi bahaya judol',
-    'slot olympus simulator',
-    'crash aviator simulator',
-    'roulette simulator',
-    'togel 4d simulator',
-    'dice simulator',
+    'simulasi game kasino',
+    'slot olympus demo',
+    'crash aviator game',
+    'roulette online',
+    'togel 4d indonesia',
+    'simulasi game',
   ],
-  authors: [{ name: 'Tri Wahyu (NIM 22518241023) - Universitas Negeri Yogyakarta' }],
+  authors: [{ name: 'Judoru45 Gaming Entertainment' }],
 };
 
 export const viewport: Viewport = {

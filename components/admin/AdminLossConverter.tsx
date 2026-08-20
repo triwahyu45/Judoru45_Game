@@ -93,13 +93,13 @@ const EXTENDED_COMMODITIES = [
     description: 'Tempat tinggal aman dan nyaman untuk mahasiswa di sekitar kampus.',
   },
   {
-    id: 'ukt_kuliah_uny',
-    name: 'Semester UKT Kuliah UNY',
+    id: 'ukt_kuliah_ptn',
+    name: 'Semester UKT Kuliah Perguruan Tinggi',
     category: 'education',
     unitPrice: 2_500_000,
     icon: GraduationCap,
     unitLabel: 'semester',
-    description: 'Biaya 1 semester kuliah penuh di Universitas Negeri Yogyakarta (UNY).',
+    description: 'Biaya 1 semester kuliah penuh di perguruan tinggi negeri.',
   },
   {
     id: 'smartphone_mid',

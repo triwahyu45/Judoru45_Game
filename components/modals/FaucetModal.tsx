@@ -165,9 +165,9 @@ export const FaucetModal: React.FC<FaucetModalProps> = ({ isOpen, onClose }) => 
         <div className="px-6 py-3 bg-[#070D18] border-t border-[#1E2D44] flex items-center justify-between text-[11px] text-slate-400">
           <span className="flex items-center space-x-1">
             <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
-            <span>Simulasi Anti-Judi Judoru45</span>
+            <span>Simulasi Kasino Fiktif Judoru45</span>
           </span>
-          <span>UNY — Tri Wahyu (2026)</span>
+          <span>100% Saldo Virtual Tanpa Risiko</span>
         </div>
 
       </div>

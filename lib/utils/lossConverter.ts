@@ -72,13 +72,13 @@ export const REAL_WORLD_ITEMS = [
     description: 'Minuman kopi segar teman belajar',
   },
   {
-    id: 'ukt_uny',
-    name: 'Semester Kuliah UKT UNY',
+    id: 'ukt_ptn',
+    name: 'Semester Kuliah UKT Kuliah',
     unitPrice: 2_500_000,
     unitLabel: 'semester',
     category: 'education' as const,
     icon: 'GraduationCap',
-    description: 'Biaya 1 semester kuliah penuh di Universitas Negeri Yogyakarta',
+    description: 'Biaya 1 semester kuliah penuh di perguruan tinggi negeri',
   },
   {
     id: 'iphone',
@@ -141,7 +141,7 @@ export function getPrimaryLossEquivalent(totalLost: number): LossEquivalentItem 
     return equivalents.find((i) => i.id === 'iphone') || equivalents[0];
   }
   if (totalLost >= 2_500_000) {
-    return equivalents.find((i) => i.id === 'ukt_uny') || equivalents[0];
+    return equivalents.find((i) => i.id === 'ukt_ptn') || equivalents[0];
   }
   if (totalLost >= 75_000) {
     return equivalents.find((i) => i.id === 'beras_5kg') || equivalents[0];
