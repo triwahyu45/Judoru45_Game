@@ -45,6 +45,20 @@ export default function HomePage() {
 
   const gameCards = [
     {
+      id: 'slot777',
+      title: '🔴 SLOT KLASIK LUCKY 777 (TRIPLE SEVEN)',
+      subtitle: '3-Reel Vegas Neon & Maxwin 777x Payout',
+      description: 'Sensasi slot retro mesin Las Vegas asli! Kumpulkan 3 simbol Lucky 7 Merah untuk ledakan jackpot sensasional 777x lipat.',
+      badge: '🔥 NEW REALEASE 777X',
+      href: '/slot777',
+      icon: Sparkles,
+      color: 'from-red-500/20 via-amber-600/10 to-transparent',
+      borderColor: 'border-red-500/40 hover:border-red-400',
+      accentColor: 'text-red-400',
+      glowColor: 'hover:shadow-[0_0_30px_rgba(239,68,68,0.25)]',
+      stats: '🔴 Maxwin: 777x Lipat',
+    },
+    {
       id: 'slot',
       title: '⚡ GATES OF ZEUS (SLOT GACOR X5000)',
       subtitle: 'Sensational Cascades & Petir Merah x500',

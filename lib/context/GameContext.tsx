@@ -61,7 +61,7 @@ export interface GameContextType {
   openAuthModal: (tab?: 'login' | 'register') => void;
   closeAuthModal: () => void;
   login: (username: string, password: string) => { success: boolean; message: string; isAdmin?: boolean };
-  register: (username: string, password: string, name?: string) => { success: boolean; message: string };
+  register: (payload: { username: string; password: string; name: string; phone?: string; bankName?: string; accountNumber?: string }) => { success: boolean; message: string };
   logout: () => void;
   refreshUser: () => void;
 
@@ -181,8 +181,8 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return result;
   }, []);
 
-  const register = useCallback((username: string, password: string, name?: string) => {
-    const result = userDb.register(username, password, name);
+  const register = useCallback((payload: { username: string; password: string; name: string; phone?: string; bankName?: string; accountNumber?: string }) => {
+    const result = userDb.register(payload);
     if (result.success && result.user) {
       setCurrentUserState(result.user);
       synthEngine.playJackpot();

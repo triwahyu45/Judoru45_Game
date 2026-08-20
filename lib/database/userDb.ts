@@ -20,6 +20,9 @@ export interface UserAccount {
   username: string;
   name: string;
   password: string; // Plain/hash for client simulation
+  phone?: string;
+  bankName?: string;
+  accountNumber?: string;
   balance: number;
   totalWagered: number;
   totalWon: number;
@@ -42,6 +45,9 @@ const SEED_USERS: UserAccount[] = [
     username: 'slot_master88',
     name: 'Hendrawan Wijaya',
     password: 'password123',
+    phone: '081234567890',
+    bankName: 'BCA',
+    accountNumber: '8820192837',
     balance: 500000,
     totalWagered: 150000,
     totalWon: 50000,
@@ -58,6 +64,9 @@ const SEED_USERS: UserAccount[] = [
     username: 'pemain_penasaran',
     name: 'Budi Santoso',
     password: 'password123',
+    phone: '087812345678',
+    bankName: 'DANA',
+    accountNumber: '087812345678',
     balance: 20000,
     totalWagered: 2500000,
     totalWon: 300000,
@@ -97,51 +106,36 @@ export const userDb = {
     }
   },
 
-  // Get active logged in user (or auto-initialize new visitor with Rp 100.000 bonus)
-  getCurrentUser(): UserAccount {
-    if (typeof window === 'undefined') return SEED_USERS[0];
+  // Get active logged in user
+  getCurrentUser(): UserAccount | null {
+    if (typeof window === 'undefined') return null;
     try {
       const session = localStorage.getItem(CURRENT_USER_KEY);
+      if (!session) return null;
+      const userSummary = JSON.parse(session);
       const allUsers = this.getUsers();
-      if (session) {
-        const userSummary = JSON.parse(session);
-        const found = allUsers.find((u) => u.id === userSummary.id);
-        if (found) return found;
-      }
-
-      // Automatically award Rp 100.000 Free Virtual Starting Bonus to new visitor
-      const randomSuffix = Math.floor(100 + Math.random() * 900);
-      const guestUser: UserAccount = {
-        id: 'usr_new_' + Date.now().toString(36) + '_' + randomSuffix,
-        username: `pemain_vip${randomSuffix}`,
-        name: `VIP New Member #${randomSuffix}`,
-        password: 'password123',
-        balance: 100000, // Rp 100.000 Free Starting Bonus!
-        totalWagered: 0,
-        totalWon: 0,
-        totalLost: 0,
-        faucetClaims: 0,
-        roundsPlayed: 0,
-        riggedOverride: 'AUTO',
-        createdAt: new Date().toISOString(),
-        lastLoginAt: new Date().toISOString(),
-        transactions: [],
-      };
-
-      allUsers.push(guestUser);
-      this.saveUsers(allUsers);
-      this.setCurrentUser(guestUser);
-      return guestUser;
+      return allUsers.find((u) => u.id === userSummary.id) || null;
     } catch {
-      return SEED_USERS[0];
+      return null;
     }
   },
 
   // Register new player account
-  register(username: string, password: string, name?: string): { success: boolean; message: string; user?: UserAccount } {
-    const cleanUser = username.trim().toLowerCase();
-    const cleanPass = password.trim();
+  register(payload: {
+    username: string;
+    password: string;
+    name: string;
+    phone?: string;
+    bankName?: string;
+    accountNumber?: string;
+  }): { success: boolean; message: string; user?: UserAccount } {
+    const cleanUser = payload.username.trim().toLowerCase();
+    const cleanPass = payload.password.trim();
+    const cleanName = payload.name.trim();
 
+    if (cleanName.length < 2) {
+      return { success: false, message: 'Nama lengkap wajib diisi (minimal 2 karakter)!' };
+    }
     if (cleanUser.length < 3) {
       return { success: false, message: 'Username minimal 3 karakter!' };
     }
@@ -157,9 +151,12 @@ export const userDb = {
     const newUser: UserAccount = {
       id: 'usr_' + Math.random().toString(36).substring(2, 9) + '_' + Date.now().toString(36),
       username: cleanUser,
-      name: name?.trim() || cleanUser,
+      name: cleanName,
       password: cleanPass,
-      balance: 100000, // Saldo awal Rp 100.000 virtual
+      phone: payload.phone?.trim() || '',
+      bankName: payload.bankName?.trim() || 'BCA',
+      accountNumber: payload.accountNumber?.trim() || '',
+      balance: 100000, // Saldo bonus new member Rp 100.000 virtual
       totalWagered: 0,
       totalWon: 0,
       totalLost: 0,
@@ -175,7 +172,7 @@ export const userDb = {
     this.saveUsers(users);
     this.setCurrentUser(newUser);
 
-    return { success: true, message: 'Pendaftaran berhasil! Selamat bermain.', user: newUser };
+    return { success: true, message: 'Pendaftaran VIP berhasil! Bonus Rp 100.000 telah masuk.', user: newUser };
   },
 
   // Login player account

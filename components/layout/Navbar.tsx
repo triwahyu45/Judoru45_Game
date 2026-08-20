@@ -86,6 +86,7 @@ export const Navbar: React.FC = () => {
 
   const navLinks = [
     { href: '/', label: 'Lobby', icon: Layers },
+    { href: '/slot777', label: '777', icon: Sparkles },
     { href: '/slot', label: 'Slot', icon: Flame },
     { href: '/crash', label: 'Crash', icon: Bomb },
     { href: '/roulette', label: 'Roulette', icon: CircleDot },
