@@ -132,9 +132,30 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   useEffect(() => {
     try {
       if (typeof window !== 'undefined') {
+        // Clear old auto-guest sessions (pemain_vipXXX pattern) to force proper registration
+        const CURRENT_USER_KEY = 'judoru45_active_session_v1';
+        const session = localStorage.getItem(CURRENT_USER_KEY);
+        if (session) {
+          try {
+            const parsed = JSON.parse(session);
+            // If the stored session is an old auto-guest account, clear it
+            if (parsed?.username && /^pemain_vip\d+$/.test(parsed.username)) {
+              localStorage.removeItem(CURRENT_USER_KEY);
+            }
+          } catch { /* ignore */ }
+        }
+
         // Load active user session from database
         const user = userDb.getCurrentUser();
         setCurrentUserState(user);
+
+        // If no user is logged in, auto-open the registration modal
+        if (!user) {
+          setTimeout(() => {
+            setAuthModalTab('register');
+            setIsAuthModalOpen(true);
+          }, 800);
+        }
 
         // Load Admin Config
         const rawAdmin = localStorage.getItem(STORAGE_ADMIN_KEY);

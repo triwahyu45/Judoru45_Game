@@ -8,6 +8,7 @@ import {
   Lock,
   ArrowRight,
   ShieldCheck,
+  ShieldAlert,
   UserPlus,
   LogIn,
   Coins,
@@ -46,7 +47,9 @@ export const UserAuthModal: React.FC<UserAuthModalProps> = ({
   defaultTab = 'register',
 }) => {
   const router = useRouter();
-  const { login, register } = useGame();
+  const { login, register, isLoggedIn } = useGame();
+  // If user is not logged in and modal is open, it's a forced gate — cannot close
+  const isForced = isOpen && !isLoggedIn;
 
   const [activeTab, setActiveTab] = useState<'login' | 'register'>(defaultTab);
   const [username, setUsername] = useState('');
@@ -135,20 +138,30 @@ export const UserAuthModal: React.FC<UserAuthModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-fadeIn">
       <div className="w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-[#0B111B] border border-amber-500/40 shadow-[0_0_60px_rgba(245,158,11,0.2)] relative overflow-hidden space-y-5 max-h-[92vh] flex flex-col">
         
         {/* Top Gold Stripe */}
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 animate-pulse" />
 
-        {/* Close Button */}
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-xl bg-[#05070B] border border-[#1E2D44] text-slate-400 hover:text-white transition z-10"
-        >
-          <X className="w-4 h-4" />
-        </button>
+        {/* Close Button — hidden when forced gate (no account yet) */}
+        {!isForced && (
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute top-4 right-4 p-2 rounded-xl bg-[#05070B] border border-[#1E2D44] text-slate-400 hover:text-white transition z-10"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+
+        {/* Forced Gate Banner */}
+        {isForced && (
+          <div className="flex items-center justify-center space-x-2 px-3 py-1.5 rounded-xl bg-red-500/10 border border-red-500/30 text-red-300 text-[11px] font-bold flex-shrink-0">
+            <ShieldAlert className="w-3.5 h-3.5 text-red-400 flex-shrink-0" />
+            <span>Wajib mendaftar / masuk untuk mengakses semua permainan & saldo bonus</span>
+          </div>
+        )}
 
         {/* Header & Tabs */}
         <div className="text-center space-y-2.5 flex-shrink-0 pt-1">
