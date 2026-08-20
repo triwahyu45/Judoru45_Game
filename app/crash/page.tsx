@@ -192,13 +192,10 @@ export default function CrashPage() {
 
         {/* Live Admin Config & Balance */}
         <div className="flex items-center space-x-2">
-          <Link
-            href="/admin"
-            className="px-3 py-1.5 rounded-xl bg-purple-950/80 hover:bg-purple-900 border border-purple-700/80 text-[11px] font-bold text-purple-200 flex items-center space-x-1.5 shadow-sm transition-colors"
-          >
-            <Sliders className="w-3.5 h-3.5 text-purple-400" />
-            <span>RTP: {adminConfig.globalRtp}% ({adminConfig.activeProfile})</span>
-          </Link>
+          <div className="px-3 py-1.5 rounded-xl bg-[#0F172A] border border-[#1E2D44] text-[11px] font-bold text-slate-300 flex items-center space-x-1.5 shadow-sm">
+            <ShieldAlert className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Mode Edukasi Fiktif</span>
+          </div>
           <div className="px-3 py-1.5 rounded-xl bg-[#050811] border border-cyan-500/40 text-right">
             <span className="text-[10px] text-slate-400 block leading-none">Saldo:</span>
             <span className="text-xs sm:text-sm font-black text-cyan-400 leading-tight">

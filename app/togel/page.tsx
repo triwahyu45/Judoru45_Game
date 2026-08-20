@@ -201,13 +201,10 @@ export default function TogelPage() {
             <BookOpen className="w-3.5 h-3.5" />
             <span>Matematika &amp; Payout</span>
           </button>
-          <Link
-            href="/admin"
-            className="px-3.5 py-2 rounded-xl bg-purple-950 hover:bg-purple-900 border border-purple-700 text-xs font-semibold text-purple-200 flex items-center space-x-1.5 transition-all"
-          >
-            <Sliders className="w-3.5 h-3.5 text-purple-400" />
-            <span>Admin Rigged</span>
-          </Link>
+          <div className="px-3.5 py-2 rounded-xl bg-[#0F172A] border border-[#1E2D44] text-xs font-semibold text-slate-300 flex items-center space-x-1.5 shadow-sm">
+            <ShieldAlert className="w-3.5 h-3.5 text-purple-400" />
+            <span>Mode Edukasi Fiktif</span>
+          </div>
         </div>
       </div>
 

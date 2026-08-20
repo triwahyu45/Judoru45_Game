@@ -209,14 +209,10 @@ export default function DicePage() {
             <div className="text-base font-black text-orange-400">{formatIDR(balance)}</div>
           </div>
 
-          <Link
-            href="/admin"
-            className="p-2.5 rounded-2xl bg-purple-950/80 hover:bg-purple-900 border border-purple-700/50 text-purple-300 transition-all active:scale-95 flex items-center gap-1.5 text-xs font-bold"
-            title="Atur Rigged Engine Dice di Admin"
-          >
-            <Sliders className="w-4 h-4 text-purple-400" />
-            <span className="hidden md:inline">Admin Mode</span>
-          </Link>
+          <div className="px-3 py-2 rounded-2xl bg-[#0F172A] border border-[#1E2D44] text-xs font-bold text-slate-300 flex items-center gap-1.5 shadow-sm">
+            <ShieldAlert className="w-4 h-4 text-orange-400" />
+            <span>Mode Edukasi Fiktif</span>
+          </div>
         </div>
       </div>
 

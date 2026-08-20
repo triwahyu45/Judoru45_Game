@@ -193,15 +193,6 @@ export const Footer: React.FC = () => {
           </div>
 
         </div>
-
-        {/* Floating Stealth Admin Gear Trigger */}
-        <Link
-          href="/admin"
-          className="fixed bottom-3 right-3 p-2 rounded-full bg-[#05070B] border border-[#1E2D44] text-slate-600 opacity-15 hover:opacity-100 hover:text-purple-400 hover:border-purple-500/50 transition-all z-30 shadow-lg"
-          title="Master Admin Control Panel (Secret Access)"
-        >
-          <Settings className="w-4 h-4 animate-spin-slow" />
-        </Link>
       </footer>
 
       {/* Modals */}

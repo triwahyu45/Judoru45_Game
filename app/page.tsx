@@ -150,31 +150,23 @@ export default function HomePage() {
             </h1>
 
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Selamat datang di <strong>Judoru45</strong>. Di sini Anda dapat memainkan 6 simulator permainan judi online terpopuler menggunakan <span className="text-amber-400 font-semibold">100% saldo virtual fiktif</span>. Kami membuka algoritma dapur bandar secara transparan melalui <strong>Panel Master Admin</strong> sehingga Anda dapat membuktikan sendiri bagaimana peluang selalu dirancang untuk menguras uang pemain.
+              Selamat datang di <strong className="text-white">Judoru45</strong>. Platform interaktif untuk membongkar dan menguji secara nyata 6 simulator permainan judi online terpopuler menggunakan <span className="text-amber-400 font-semibold">100% saldo virtual gratis</span> tanpa top-up. Kami membongkar rahasia algoritma dapur bandar secara transparan untuk menyadarkan masyarakat bahwa dalam judi online, pemain dipastikan akan selalu kalah.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Link
                 href="/slot"
-                className="px-5 py-3 rounded-xl btn-gold flex items-center space-x-2 text-sm font-bold shadow-lg"
+                className="px-6 py-3.5 rounded-xl btn-gold flex items-center space-x-2 text-sm font-bold shadow-lg shadow-amber-500/20 hover:scale-105 transition"
               >
                 <Flame className="w-4 h-4 text-black" />
                 <span>Mulai Simulasi Slot</span>
                 <ArrowRight className="w-4 h-4 text-black" />
               </Link>
 
-              <Link
-                href="/admin"
-                className="px-5 py-3 rounded-xl bg-purple-950/60 hover:bg-purple-900/80 border border-purple-700/60 text-purple-200 flex items-center space-x-2 text-sm font-bold transition shadow-md"
-              >
-                <Sliders className="w-4 h-4 text-purple-400" />
-                <span>Buka Panel Master Admin</span>
-              </Link>
-
               <button
                 type="button"
                 onClick={() => setIsFaucetOpen(true)}
-                className="px-4 py-3 rounded-xl bg-[#0B111B] hover:bg-slate-800 border border-[#1E2D44] text-slate-200 flex items-center space-x-2 text-sm font-semibold transition"
+                className="px-5 py-3.5 rounded-xl bg-[#0B111B] hover:bg-[#151E2E] border border-amber-500/30 text-amber-300 hover:text-white flex items-center space-x-2 text-sm font-semibold transition shadow-md"
               >
                 <Sparkles className="w-4 h-4 text-amber-400" />
                 <span>Klaim Saldo Faucet Gratis</span>
@@ -182,39 +174,43 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Quick Rigged Engine Monitor Pill */}
-          <div className="w-full lg:w-80 bg-[#070D18]/90 border border-[#1E2D44] rounded-2xl p-5 space-y-4 shadow-xl flex-shrink-0">
+          {/* Real-time System Transparency Card */}
+          <div className="w-full lg:w-80 bg-[#070D18]/95 border border-[#1E2D44] rounded-2xl p-5 space-y-4 shadow-2xl flex-shrink-0 relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 via-emerald-500 to-cyan-500" />
+            
             <div className="flex items-center justify-between border-b border-[#1E2D44] pb-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center space-x-1.5">
-                <Lock className="w-3.5 h-3.5 text-purple-400" />
-                <span>Status Algoritma Bandar</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center space-x-1.5">
+                <ShieldAlert className="w-3.5 h-3.5 text-amber-400" />
+                <span>Status Sistem Edukasi</span>
               </span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
-                LIVE
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 animate-pulse">
+                AKTIF
               </span>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400">Global RTP House:</span>
-                <span className="font-bold text-amber-400">{adminConfig.globalRtp}% (House Edge: {100 - adminConfig.globalRtp}%)</span>
+              <div className="flex justify-between items-center p-2 rounded-lg bg-[#0B111B] border border-[#1E2D44]/60">
+                <span className="text-slate-400">Tipe Saldo:</span>
+                <span className="font-bold text-emerald-400">100% Simulasi Fiktif</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400">Profil Algoritma:</span>
-                <span className="font-semibold text-purple-300 capitalize">{adminConfig.activeProfile.replace('_', ' ')}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-slate-400">Tarikan Saldo Virtual:</span>
+              <div className="flex justify-between items-center p-2 rounded-lg bg-[#0B111B] border border-[#1E2D44]/60">
+                <span className="text-slate-400">Saldo Virtualmu:</span>
                 <span className="font-mono text-gold-gradient font-bold">{formatIDR(balance)}</span>
+              </div>
+              <div className="flex justify-between items-center p-2 rounded-lg bg-[#0B111B] border border-[#1E2D44]/60">
+                <span className="text-slate-400">Estimasi Uang Aman:</span>
+                <span className="font-bold text-amber-300">{formatIDR(totalLost)}</span>
               </div>
             </div>
 
-            <Link
-              href="/admin"
-              className="w-full py-2 px-3 rounded-lg bg-purple-900/40 hover:bg-purple-800/60 border border-purple-700/50 text-purple-200 text-xs font-semibold flex items-center justify-center space-x-1.5 transition"
+            <button
+              type="button"
+              onClick={() => setIsFaucetOpen(true)}
+              className="w-full py-2.5 px-3 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 text-xs font-bold flex items-center justify-center space-x-1.5 transition"
             >
-              <span>Ubah Settingan Bandar di Admin &rarr;</span>
-            </Link>
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>Isi Ulang Saldo Instan</span>
+            </button>
           </div>
 
         </div>
