@@ -419,13 +419,11 @@ export default function HomePage() {
             </div>
           </div>
 
-          <Link
-            href="/admin"
-            className="w-full py-3 px-4 rounded-xl bg-purple-950/60 hover:bg-purple-900/80 border border-purple-700/60 text-purple-200 text-xs font-bold flex items-center justify-center space-x-2 transition"
-          >
-            <Sliders className="w-4 h-4 text-purple-400" />
-            <span>Coba Sendiri Settingan di Admin</span>
-          </Link>
+          <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-center">
+            <span className="text-[11px] text-amber-300 font-medium">
+              💡 100% Simulasi Edukasi Tanpa Uang Nyata
+            </span>
+          </div>
         </div>
 
       </section>

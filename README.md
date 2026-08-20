@@ -9,8 +9,7 @@
 </p>
 
 <p align="center">
-  🌐 <b>Live Website Demo:</b> <a href="https://triwahyu45.github.io/Judoru45_Game/">https://triwahyu45.github.io/Judoru45_Game/</a><br>
-  🔐 <b>Admin Master Control:</b> <a href="https://triwahyu45.github.io/Judoru45_Game/admin/">https://triwahyu45.github.io/Judoru45_Game/admin/</a> <i>(PIN: <code>060902</code>)</i>
+  🌐 <b>Live Website:</b> <a href="https://triwahyu45.github.io/Judoru45_Game/">https://triwahyu45.github.io/Judoru45_Game/</a>
 </p>
 
 ---
@@ -41,10 +40,13 @@ Setiap game dibuat dengan animasi dinamis, efek visual modern, dan mesin suara p
 
 ---
 
-## 🕵️ Dashboard Admin Master Control (`/admin`)
+## 🕵️ Panel Master Control (Tersembunyi)
 
-Halaman khusus untuk menguji dan mendemonstrasikan manipulasi probabilitas bandar secara langsung:
-* 🔑 **PIN Masuk**: **`060902`** *(atau tombol Akses Cepat Demo)*.
+Panel kendali manipulasi probabilitas bandar dilindungi dan disembunyikan dari antarmuka publik:
+* 🔐 **Cara Masuk**:
+  1. Klik tombol **"Masuk"** di pojok kanan atas ➔ masukkan PIN **`060902`** (atau username `admin45`), ATAU
+  2. Tekan **5x Tap Cepat pada Logo J45** di header, ATAU
+  3. Tekan kombinasi tombol **`Ctrl + Shift + A`** di keyboard.
 * 🎚️ **Slider RTP / Win Rate Global (0% – 100%)**:
   * Set ke **0%** ➔ Setiap putaran pemain dijamin **Pasti Rungkad/Kalah**.
   * Set ke **100%** ➔ Setiap putaran pemain dijamin **Pasti Menang/Jackpot** *(Fase Hook pemancing nafsu)*.

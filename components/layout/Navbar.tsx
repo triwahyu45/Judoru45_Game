@@ -8,6 +8,7 @@ import { formatIDR } from '@/lib/utils/currency';
 import { FaucetModal } from '@/components/modals/FaucetModal';
 import { DonationModal } from '@/components/modals/DonationModal';
 import { HelplineModal } from '@/components/modals/HelplineModal';
+import { UserLoginModal } from '@/components/modals/UserLoginModal';
 import {
   ShieldAlert,
   Coins,
@@ -26,6 +27,7 @@ import {
   Trophy,
   Heart,
   LifeBuoy,
+  User,
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -37,6 +39,7 @@ export const Navbar: React.FC = () => {
   const [isDonationOpen, setIsDonationOpen] = useState(false);
   const [isHelplineOpen, setIsHelplineOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   // 5-Tap Secret Logo Gesture for Admin Trigger
   const logoTapCountRef = useRef(0);
@@ -206,15 +209,16 @@ export const Navbar: React.FC = () => {
                 {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
               </button>
 
-              {/* Quick Admin Access Button */}
-              <Link
-                href="/admin"
-                className="flex items-center space-x-1.5 px-2.5 py-2 rounded-xl bg-purple-950/40 hover:bg-purple-900/60 border border-purple-800/50 text-purple-300 hover:text-purple-100 text-xs font-bold transition shadow-sm"
-                title={`Admin Setting Panel (RTP Saat Ini: ${adminConfig.globalRtp}%)`}
+              {/* User Login Button (Replaces visible Admin button) */}
+              <button
+                type="button"
+                onClick={() => setIsLoginOpen(true)}
+                className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-[#0B111B] hover:bg-[#151E2E] border border-amber-500/30 text-amber-300 hover:text-white text-xs font-bold transition shadow-sm"
+                title="Masuk Akun Pemain"
               >
-                <Sliders className="w-3.5 h-3.5 text-purple-400" />
-                <span className="hidden md:inline">Admin</span>
-              </Link>
+                <User className="w-3.5 h-3.5 text-amber-400" />
+                <span>Masuk</span>
+              </button>
 
               {/* Mobile Menu Toggle */}
               <button
@@ -297,6 +301,7 @@ export const Navbar: React.FC = () => {
       <FaucetModal isOpen={isFaucetOpen} onClose={() => setIsFaucetOpen(false)} />
       <DonationModal isOpen={isDonationOpen} onClose={() => setIsDonationOpen(false)} />
       <HelplineModal isOpen={isHelplineOpen} onClose={() => setIsHelplineOpen(false)} />
+      <UserLoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </>
   );
 };

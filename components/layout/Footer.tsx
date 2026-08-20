@@ -176,16 +176,6 @@ export const Footer: React.FC = () => {
                   Universitas Negeri Yogyakarta (UNY)
                 </div>
               </div>
-
-              <div className="flex items-center space-x-2 pt-1">
-                <Link
-                  href="/admin"
-                  className="inline-flex items-center space-x-1.5 text-xs text-purple-400 hover:text-purple-300 font-semibold transition"
-                >
-                  <Lock className="w-3.5 h-3.5" />
-                  <span>Panel Master Admin (RTP & Rigging)</span>
-                </Link>
-              </div>
             </div>
 
           </div>
