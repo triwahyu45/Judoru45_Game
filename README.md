@@ -60,7 +60,7 @@ Panel kendali manipulasi probabilitas bandar dilindungi sistem autentikasi keama
 
 Website ini menyediakan modul donasi sukarela untuk mendukung pengembangan edukasi digital, serta direktori darurat bantuan korban judi:
 
-* ☕ **Kanal Donasi Apresiasi**: Saweria, Trakteer, Scan QRIS Interaktif, PayPal, dan Ko-fi.
+* ☕ **Kanal Donasi Apresiasi**: SociaBuzz Tribe (QRIS/E-Wallet/VA/Kartu Kredit), Saweria, Trakteer, PayPal, dan Ko-fi.
 * 📞 **Pusat Bantuan Resmi**:
   * **Kemenkes SEJIWA**: Hotline 119 (Ext 8) — Konseling Psikologis & Depresi
   * **Kemensos RI**: 1500771 — Bantuan Rehabilitasi Sosial

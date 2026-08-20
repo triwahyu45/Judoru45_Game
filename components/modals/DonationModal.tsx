@@ -4,19 +4,17 @@ import React, { useState } from 'react';
 import {
   X,
   Heart,
-  QrCode,
   CreditCard,
   Coins,
   Copy,
   Check,
   ExternalLink,
-  Download,
-  GraduationCap,
   Sparkles,
   ShieldCheck,
   Coffee,
   Globe,
   Wallet,
+  Zap,
 } from 'lucide-react';
 import { formatIDR } from '@/lib/utils/currency';
 
@@ -26,7 +24,7 @@ interface DonationModalProps {
 }
 
 export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose }) => {
-  const [activeTab, setActiveTab] = useState<'saweria' | 'trakteer' | 'qris' | 'paypal' | 'crypto'>('saweria');
+  const [activeTab, setActiveTab] = useState<'sociabuzz' | 'saweria' | 'trakteer' | 'paypal' | 'crypto'>('sociabuzz');
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [cendolCount, setCendolCount] = useState<number>(5);
 
@@ -36,23 +34,6 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
     navigator.clipboard.writeText(text);
     setCopiedKey(key);
     setTimeout(() => setCopiedKey(null), 2500);
-  };
-
-  const handleDownloadQris = () => {
-    // Generate simple SVG QR download
-    const svgElement = document.getElementById('qris-svg-mockup');
-    if (!svgElement) return;
-
-    const svgString = new XMLSerializer().serializeToString(svgElement);
-    const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const downloadAnchor = document.createElement('a');
-    downloadAnchor.setAttribute('href', url);
-    downloadAnchor.setAttribute('download', 'QRIS_Judoru45_Official.svg');
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-    URL.revokeObjectURL(url);
   };
 
   return (
@@ -92,9 +73,9 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
         {/* Channel Navigation Tabs */}
         <div className="flex border-b border-[#1E2D44] bg-[#05070B] overflow-x-auto px-4 pt-2">
           {[
+            { id: 'sociabuzz', label: 'SociaBuzz', icon: Zap },
             { id: 'saweria', label: 'Saweria', icon: Sparkles },
             { id: 'trakteer', label: 'Trakteer', icon: Coffee },
-            { id: 'qris', label: 'QRIS Universal', icon: QrCode },
             { id: 'paypal', label: 'PayPal / Ko-fi', icon: Globe },
             { id: 'crypto', label: 'Kripto / Web3', icon: Wallet },
           ].map((tab) => {
@@ -238,82 +219,74 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
             </div>
           )}
 
-          {/* QRIS TAB */}
-          {activeTab === 'qris' && (
+          {/* SOCIABUZZ TAB */}
+          {activeTab === 'sociabuzz' && (
             <div className="space-y-5">
-              <div className="flex flex-col sm:flex-row items-center gap-6 p-6 rounded-2xl bg-[#05070B] border border-[#1E2D44]">
-                
-                {/* SVG QRIS Mockup */}
-                <div className="p-4 bg-white rounded-2xl shadow-xl flex flex-col items-center space-y-2 flex-shrink-0">
-                  <div className="text-[10px] font-black text-slate-900 tracking-wider">
-                    QRIS UNIVERSAL INDONESIA
+              <div className="p-4 rounded-2xl bg-emerald-950/20 border border-emerald-500/30 text-emerald-200 flex items-center justify-between">
+                <div>
+                  <div className="font-bold text-sm text-white flex items-center space-x-2">
+                    <span>SociaBuzz Tribe &amp; Tips</span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                      Rekomendasi
+                    </span>
                   </div>
-
-                  <svg
-                    id="qris-svg-mockup"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 160 160"
-                    className="w-40 h-40"
-                  >
-                    <rect width="160" height="160" fill="#ffffff" />
-                    {/* Corner 1 */}
-                    <rect x="10" y="10" width="40" height="40" fill="#000000" />
-                    <rect x="16" y="16" width="28" height="28" fill="#ffffff" />
-                    <rect x="22" y="22" width="16" height="16" fill="#000000" />
-                    {/* Corner 2 */}
-                    <rect x="110" y="10" width="40" height="40" fill="#000000" />
-                    <rect x="116" y="16" width="28" height="28" fill="#ffffff" />
-                    <rect x="122" y="22" width="16" height="16" fill="#000000" />
-                    {/* Corner 3 */}
-                    <rect x="10" y="110" width="40" height="40" fill="#000000" />
-                    <rect x="16" y="116" width="28" height="28" fill="#ffffff" />
-                    <rect x="22" y="122" width="16" height="16" fill="#000000" />
-                    {/* Center decorative pattern */}
-                    <rect x="60" y="20" width="10" height="10" fill="#000000" />
-                    <rect x="80" y="30" width="10" height="10" fill="#000000" />
-                    <rect x="60" y="60" width="40" height="40" fill="#000000" />
-                    <rect x="70" y="70" width="20" height="20" fill="#ffffff" />
-                    <rect x="75" y="75" width="10" height="10" fill="#000000" />
-                    <rect x="110" y="60" width="20" height="10" fill="#000000" />
-                    <rect x="130" y="80" width="10" height="20" fill="#000000" />
-                    <rect x="20" y="70" width="20" height="10" fill="#000000" />
-                    <rect x="60" y="110" width="10" height="30" fill="#000000" />
-                    <rect x="80" y="120" width="20" height="10" fill="#000000" />
-                    <rect x="110" y="110" width="30" height="10" fill="#000000" />
-                    <rect x="130" y="130" width="20" height="20" fill="#000000" />
-                  </svg>
-
-                  <div className="text-[9px] font-mono text-slate-600 font-bold">
-                    NMID: ID1020264545999
+                  <div className="text-[11px] text-emerald-300/90 mt-0.5">
+                    Mendukung QRIS, GoPay, OVO, DANA, ShopeePay, Virtual Account &amp; Kartu Kredit
                   </div>
                 </div>
+                <span className="font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40">
+                  sociabuzz.com/judoru45
+                </span>
+              </div>
 
-                {/* Details & Compatible Apps */}
-                <div className="space-y-3 flex-1">
-                  <div>
-                    <h3 className="text-sm font-bold text-white">Merchant: JUDORU45 OFFICIAL</h3>
-                    <p className="text-[11px] text-slate-400">
-                      Menerima pembayaran dari seluruh aplikasi M-Banking & E-Wallet di Indonesia.
-                    </p>
-                  </div>
-
-                  <div className="p-3 rounded-xl bg-[#0B111B] border border-[#1E2D44] text-[10px] text-slate-300 space-y-1">
-                    <div className="font-bold text-amber-300">Kompatibel Dengan:</div>
-                    <p className="text-slate-400 leading-snug">
-                      BCA Mobile, Mandiri Livin&apos;, BRImo, BNI Mobile, CIMB Octo, GoPay, OVO, DANA, ShopeePay, LinkAja.
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={handleDownloadQris}
-                    className="w-full py-2.5 px-4 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-bold flex items-center justify-center space-x-2 transition"
-                  >
-                    <Download className="w-4 h-4" />
-                    <span>Unduh Gambar QRIS (SVG)</span>
-                  </button>
+              <div className="space-y-2">
+                <span className="font-bold text-slate-300 text-xs">Pilihan Nominal Cepat:</span>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  {[
+                    { label: 'Rp 10.000', note: 'Dukungan Kopi' },
+                    { label: 'Rp 25.000', note: 'Apresiasi Karya' },
+                    { label: 'Rp 50.000', note: 'Pemeliharaan Server' },
+                    { label: 'Rp 100.000', note: 'Riset Edukasi' },
+                  ].map((p) => (
+                    <a
+                      key={p.label}
+                      href="https://sociabuzz.com/judoru45/tribe"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl bg-[#05070B] border border-[#1E2D44] hover:border-emerald-400 hover:bg-[#121B2A] transition text-center space-y-0.5"
+                    >
+                      <div className="font-bold text-white text-xs">{p.label}</div>
+                      <div className="text-[10px] text-slate-400">{p.note}</div>
+                    </a>
+                  ))}
                 </div>
+              </div>
 
+              <div className="p-3.5 rounded-xl bg-[#05070B] border border-[#1E2D44] text-[11px] text-slate-300 space-y-1">
+                <div className="font-bold text-emerald-400">Metode Pembayaran Tersedia di SociaBuzz:</div>
+                <p className="text-slate-400 leading-relaxed">
+                  QRIS Semua Bank &amp; E-Wallet, GoPay, DANA, OVO, ShopeePay, LinkAja, Transfer Virtual Account BCA/Mandiri/BRI/BNI/Permata, serta Visa/Mastercard.
+                </p>
+              </div>
+
+              <div className="flex gap-3">
+                <a
+                  href="https://sociabuzz.com/judoru45/tribe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-bold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20 transition"
+                >
+                  <span>Buka Portal SociaBuzz</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard('https://sociabuzz.com/judoru45/tribe', 'sociabuzz')}
+                  className="py-3 px-4 rounded-xl bg-[#05070B] border border-[#1E2D44] hover:border-slate-500 text-slate-300 text-xs font-semibold flex items-center space-x-2 transition"
+                >
+                  {copiedKey === 'sociabuzz' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                  <span>{copiedKey === 'sociabuzz' ? 'Tersalin!' : 'Salin Link'}</span>
+                </button>
               </div>
             </div>
           )}
