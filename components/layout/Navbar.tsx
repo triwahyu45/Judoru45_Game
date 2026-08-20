@@ -30,6 +30,7 @@ import {
   User,
   LogOut,
   UserCheck,
+  Brain,
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
@@ -91,6 +92,7 @@ export const Navbar: React.FC = () => {
     { href: '/dice', label: 'Dice Roll', icon: Dices },
     { href: '/togel', label: 'Togel 4D', icon: Ticket },
     { href: '/sports', label: 'Tebak Skor', icon: Trophy },
+    { href: '/edukasi', label: 'Rahasia Bandar', icon: Brain },
   ];
 
   return (
