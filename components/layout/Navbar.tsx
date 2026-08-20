@@ -101,38 +101,38 @@ export const Navbar: React.FC = () => {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
             
-            {/* Brand Logo */}
-            <div className="flex items-center space-x-2 flex-shrink-0">
+            {/* Brand Logo with Generous Right Margin */}
+            <div className="flex items-center flex-shrink-0">
               <div
                 id="brand-logo"
                 onClick={handleLogoTap}
                 className="cursor-pointer select-none"
               >
-                <Link href="/" className="flex items-center space-x-2 group">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-amber-400 via-amber-600 to-yellow-700 p-0.5 shadow-[0_0_15px_rgba(245,158,11,0.4)] group-hover:scale-105 transition flex-shrink-0">
-                    <div className="w-full h-full bg-[#0B111B] rounded-[10px] flex items-center justify-center">
-                      <span className="font-black text-base sm:text-lg text-gold-gradient tracking-tighter">J45</span>
+                <Link href="/" className="flex items-center space-x-3 group">
+                  <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-yellow-700 p-0.5 shadow-[0_0_20px_rgba(245,158,11,0.4)] group-hover:scale-105 transition flex-shrink-0">
+                    <div className="w-full h-full bg-[#070B12] rounded-[14px] flex items-center justify-center">
+                      <span className="font-black text-lg text-gold-gradient tracking-tight">J45</span>
                     </div>
                   </div>
-                  <div className="flex flex-col">
-                    <div className="flex items-center space-x-1.5">
-                      <span className="font-extrabold text-base sm:text-xl tracking-tight text-white group-hover:text-amber-400 transition">
+                  <div className="flex flex-col justify-center">
+                    <div className="flex items-center space-x-1.5 leading-none">
+                      <span className="font-black text-xl tracking-tight text-white group-hover:text-amber-400 transition">
                         JUDORU<span className="text-amber-400">45</span>
                       </span>
-                      <span className="px-1.5 py-0.2 rounded text-[9px] font-black uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                      <span className="px-1.5 py-0.5 rounded text-[8px] font-black uppercase tracking-wider bg-gradient-to-r from-amber-500/25 to-yellow-500/25 text-amber-300 border border-amber-500/50 shadow-sm">
                         VIP
                       </span>
                     </div>
-                    <span className="text-[9px] text-slate-400 font-semibold hidden md:inline-block">
-                      Platform Game &amp; Slot Online
+                    <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mt-0.5 hidden sm:inline-block">
+                      OFFICIAL CASINO
                     </span>
                   </div>
                 </Link>
               </div>
             </div>
 
-            {/* Desktop Navigation Links (Compact & Centered) */}
-            <nav className="hidden xl:flex items-center space-x-1 flex-shrink-1 overflow-hidden">
+            {/* Desktop Navigation Links (Separated by Clean Divider) */}
+            <nav className="hidden xl:flex items-center space-x-1 pl-4 lg:pl-6 border-l border-[#1E2D44]/80 flex-shrink-1 overflow-hidden">
               {navLinks.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
@@ -140,13 +140,13 @@ export const Navbar: React.FC = () => {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center space-x-1 px-2.5 py-1.5 rounded-lg text-xs font-bold transition whitespace-nowrap ${
+                    className={`flex items-center space-x-1.5 px-3 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap ${
                       isActive
-                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-[0_0_10px_rgba(245,158,11,0.2)]'
-                        : 'text-slate-300 hover:text-white hover:bg-slate-800/60'
+                        ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.25)]'
+                        : 'text-slate-300 hover:text-white hover:bg-[#121B2A]'
                     }`}
                   >
-                    <Icon className="w-3.5 h-3.5" />
+                    <Icon className="w-4 h-4 text-amber-400/90" />
                     <span>{item.label}</span>
                   </Link>
                 );
