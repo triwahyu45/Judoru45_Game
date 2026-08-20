@@ -111,7 +111,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                   <div className="text-[11px] text-amber-300">Dukungan instan via QRIS, GoPay, OVO, DANA, ShopeePay</div>
                 </div>
                 <span className="font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-500/40">
-                  saweria.co/judoru45
+                  saweria.co/triwahyu455
                 </span>
               </div>
 
@@ -126,7 +126,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                   ].map((p) => (
                     <a
                       key={p.label}
-                      href="https://saweria.co/judoru45"
+                      href="https://saweria.co/triwahyu455"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-3 rounded-xl bg-[#05070B] border border-[#1E2D44] hover:border-amber-400 hover:bg-[#121B2A] transition text-center space-y-0.5"
@@ -140,7 +140,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
 
               <div className="flex gap-3">
                 <a
-                  href="https://saweria.co/judoru45"
+                  href="https://saweria.co/triwahyu455"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-3 px-4 rounded-xl btn-gold text-black font-bold text-xs flex items-center justify-center space-x-2"
@@ -150,7 +150,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                 </a>
                 <button
                   type="button"
-                  onClick={() => copyToClipboard('https://saweria.co/judoru45', 'saweria')}
+                  onClick={() => copyToClipboard('https://saweria.co/triwahyu455', 'saweria')}
                   className="py-3 px-4 rounded-xl bg-[#05070B] border border-[#1E2D44] hover:border-slate-500 text-slate-300 text-xs font-semibold flex items-center space-x-2 transition"
                 >
                   {copiedKey === 'saweria' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
@@ -169,7 +169,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                   <div className="text-[11px] text-red-300">Traktir pengembang dengan segelas Cendol digital (@ Rp 5.000)</div>
                 </div>
                 <span className="font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-red-500/20 border border-red-500/40">
-                  trakteer.id/judoru45
+                  trakteer.id/triwahyu455
                 </span>
               </div>
 
@@ -207,7 +207,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
 
               <div className="flex gap-3">
                 <a
-                  href={`https://trakteer.id/judoru45`}
+                  href={`https://trakteer.id/triwahyu455`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-red-600/20"
@@ -235,7 +235,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                   </div>
                 </div>
                 <span className="font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40">
-                  sociabuzz.com/judoru45
+                  sociabuzz.com/triwahyu455
                 </span>
               </div>
 
@@ -250,7 +250,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                   ].map((p) => (
                     <a
                       key={p.label}
-                      href="https://sociabuzz.com/judoru45/tribe"
+                      href="https://sociabuzz.com/triwahyu455/tribe"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-3 rounded-xl bg-[#05070B] border border-[#1E2D44] hover:border-emerald-400 hover:bg-[#121B2A] transition text-center space-y-0.5"
@@ -271,7 +271,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
 
               <div className="flex gap-3">
                 <a
-                  href="https://sociabuzz.com/judoru45/tribe"
+                  href="https://sociabuzz.com/triwahyu455/tribe"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-black font-bold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-emerald-500/20 transition"
@@ -281,7 +281,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                 </a>
                 <button
                   type="button"
-                  onClick={() => copyToClipboard('https://sociabuzz.com/judoru45/tribe', 'sociabuzz')}
+                  onClick={() => copyToClipboard('https://sociabuzz.com/triwahyu455/tribe', 'sociabuzz')}
                   className="py-3 px-4 rounded-xl bg-[#05070B] border border-[#1E2D44] hover:border-slate-500 text-slate-300 text-xs font-semibold flex items-center space-x-2 transition"
                 >
                   {copiedKey === 'sociabuzz' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
@@ -312,7 +312,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                     Dukungan fleksibel melalui kartu debit/kredit internasional atau saldo PayPal.
                   </p>
                   <a
-                    href="https://paypal.me/judoru45"
+                    href="https://paypal.me/triwahyu455"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition"
@@ -332,7 +332,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose })
                     Beli segelas kopi virtual untuk mendukung operasional server Judoru45.
                   </p>
                   <a
-                    href="https://ko-fi.com/judoru45"
+                    href="https://ko-fi.com/triwahyu455"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs flex items-center justify-center space-x-1.5 transition"
