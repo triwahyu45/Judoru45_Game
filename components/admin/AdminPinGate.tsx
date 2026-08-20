@@ -17,7 +17,7 @@ interface AdminPinGateProps {
   onUnlock: () => void;
 }
 
-const PRIMARY_PIN = '4545';
+const PRIMARY_PIN = '060902';
 const SECRET_KEY = 'admin45';
 const MAX_FAILED_ATTEMPTS = 5;
 const LOCKOUT_DURATION_SECONDS = 30;
@@ -119,8 +119,8 @@ export const AdminPinGate: React.FC<AdminPinGateProps> = ({ onUnlock }) => {
         >
           <div className="space-y-2">
             <label className="text-xs font-bold text-slate-300 flex items-center justify-between">
-              <span>Masukkan PIN Master (4 Digit):</span>
-              <span className="text-[11px] font-mono text-purple-400">Default: 4545</span>
+              <span>Masukkan PIN Master (6 Digit):</span>
+              <span className="text-[11px] font-mono text-purple-400">PIN: 060902</span>
             </label>
             <div className="relative">
               <input
