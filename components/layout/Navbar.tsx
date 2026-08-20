@@ -8,7 +8,7 @@ import { formatIDR } from '@/lib/utils/currency';
 import { FaucetModal } from '@/components/modals/FaucetModal';
 import { DonationModal } from '@/components/modals/DonationModal';
 import { HelplineModal } from '@/components/modals/HelplineModal';
-import { UserLoginModal } from '@/components/modals/UserLoginModal';
+import { UserAuthModal } from '@/components/modals/UserAuthModal';
 import {
   ShieldAlert,
   Coins,
@@ -28,18 +28,30 @@ import {
   Heart,
   LifeBuoy,
   User,
+  LogOut,
+  UserCheck,
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const { balance, audioEnabled, toggleAudio, adminConfig } = useGame();
+  const {
+    balance,
+    audioEnabled,
+    toggleAudio,
+    currentUser,
+    isLoggedIn,
+    logout,
+    openAuthModal,
+    closeAuthModal,
+    isAuthModalOpen,
+    authModalTab,
+  } = useGame();
 
   const [isFaucetOpen, setIsFaucetOpen] = useState(false);
   const [isDonationOpen, setIsDonationOpen] = useState(false);
   const [isHelplineOpen, setIsHelplineOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   // 5-Tap Secret Logo Gesture for Admin Trigger
   const logoTapCountRef = useRef(0);
@@ -208,16 +220,37 @@ export const Navbar: React.FC = () => {
                 {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
               </button>
 
-              {/* User Login Button (Replaces visible Admin button) */}
-              <button
-                type="button"
-                onClick={() => setIsLoginOpen(true)}
-                className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-[#0B111B] hover:bg-[#151E2E] border border-amber-500/30 text-amber-300 hover:text-white text-xs font-bold transition shadow-sm"
-                title="Masuk Akun Pemain"
-              >
-                <User className="w-3.5 h-3.5 text-amber-400" />
-                <span>Masuk</span>
-              </button>
+              {/* Dynamic User Profile / Login Button */}
+              {isLoggedIn && currentUser ? (
+                <div className="flex items-center space-x-2 p-1 pl-2.5 pr-1.5 rounded-xl bg-[#0B111B] border border-amber-500/40 shadow-sm">
+                  <div className="flex items-center space-x-1.5">
+                    <div className="w-5 h-5 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+                      <UserCheck className="w-3 h-3" />
+                    </div>
+                    <span className="text-xs font-bold text-slate-200 hidden sm:inline max-w-[90px] truncate">
+                      {currentUser.name || currentUser.username}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={logout}
+                    className="p-1 rounded-lg hover:bg-red-950/60 text-slate-400 hover:text-red-400 transition"
+                    title="Keluar Akun"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => openAuthModal('login')}
+                  className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black text-xs font-bold transition shadow-lg shadow-amber-500/20"
+                  title="Wajib Masuk / Daftar Akun untuk Bermain"
+                >
+                  <User className="w-3.5 h-3.5 text-black" />
+                  <span>Masuk / Daftar</span>
+                </button>
+              )}
 
               {/* Mobile Menu Toggle */}
               <button
@@ -290,7 +323,7 @@ export const Navbar: React.FC = () => {
               className="w-full py-2.5 px-4 rounded-xl btn-gold flex items-center justify-center space-x-2 text-xs font-bold mt-2"
             >
               <Sparkles className="w-4 h-4 text-black" />
-              <span>Isi Ulang Saldo Gratis (+Rp 1.000.000)</span>
+              <span>Isi Ulang Saldo Gratis (+Rp 500.000)</span>
             </button>
           </div>
         )}
@@ -300,7 +333,7 @@ export const Navbar: React.FC = () => {
       <FaucetModal isOpen={isFaucetOpen} onClose={() => setIsFaucetOpen(false)} />
       <DonationModal isOpen={isDonationOpen} onClose={() => setIsDonationOpen(false)} />
       <HelplineModal isOpen={isHelplineOpen} onClose={() => setIsHelplineOpen(false)} />
-      <UserLoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
+      <UserAuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} defaultTab={authModalTab} />
     </>
   );
 };

@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import synthEngine from '@/lib/sound/synthEngine';
+import { userDb, UserAccount, UserTransaction } from '@/lib/database/userDb';
 
 export type RiggedProfile =
   | 'fair'
@@ -27,21 +28,7 @@ export interface AdminConfig {
   sportsBookmakerBias?: number;
 }
 
-export interface Transaction {
-  id: string;
-  timestamp: number;
-  gameType: string;
-  gameTitle: string;
-  betAmount: number;
-  multiplier: number;
-  payout: number;
-  netProfit: number;
-  balanceAfter: number;
-  isWin: boolean;
-  details: string;
-  riggedApplied?: boolean;
-  houseEdgeRate?: number;
-}
+export type Transaction = UserTransaction;
 
 export interface UserStats {
   balance: number;
@@ -66,7 +53,19 @@ export interface SettleBetPayload {
 }
 
 export interface GameContextType {
-  // Core state
+  // Authentication & User DB state
+  currentUser: UserAccount | null;
+  isLoggedIn: boolean;
+  isAuthModalOpen: boolean;
+  authModalTab: 'login' | 'register';
+  openAuthModal: (tab?: 'login' | 'register') => void;
+  closeAuthModal: () => void;
+  login: (username: string, password: string) => { success: boolean; message: string; isAdmin?: boolean };
+  register: (username: string, password: string, name?: string) => { success: boolean; message: string };
+  logout: () => void;
+  refreshUser: () => void;
+
+  // Core Game state
   balance: number;
   totalWagered: number;
   totalWon: number;
@@ -92,18 +91,6 @@ export interface GameContextType {
   updateAdminConfig: (config: Partial<AdminConfig>) => void;
 }
 
-const DEFAULT_STATS: UserStats = {
-  balance: 500_000,
-  totalDeposited: 500_000,
-  totalWagered: 0,
-  totalWon: 0,
-  totalLost: 0,
-  roundsPlayed: 0,
-  faucetClaims: 0,
-  highestWin: 0,
-  netProfit: 0,
-};
-
 const DEFAULT_ADMIN_CONFIG: AdminConfig = {
   globalRtp: 35,
   activeProfile: 'beginners_luck',
@@ -119,71 +106,97 @@ const DEFAULT_ADMIN_CONFIG: AdminConfig = {
   sportsBookmakerBias: 0.65,
 };
 
-const STORAGE_KEY = 'judoru45_game_v1_state';
+const STORAGE_ADMIN_KEY = 'judoru45_admin_config_v1';
 
 export const GameContext = createContext<GameContextType | undefined>(undefined);
 
 export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [stats, setStats] = useState<UserStats>(DEFAULT_STATS);
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [currentUser, setCurrentUserState] = useState<UserAccount | null>(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
+  const [authModalTab, setAuthModalTab] = useState<'login' | 'register'>('login');
+
   const [adminConfig, setAdminConfig] = useState<AdminConfig>(DEFAULT_ADMIN_CONFIG);
   const [audioEnabled, setAudioEnabledState] = useState<boolean>(true);
   const [masterVolume, setMasterVolumeState] = useState<number>(0.75);
   const [isHydrated, setIsHydrated] = useState<boolean>(false);
 
-  // Hydration from LocalStorage
+  // Refresh user data from storage
+  const refreshUser = useCallback(() => {
+    if (typeof window !== 'undefined') {
+      const user = userDb.getCurrentUser();
+      setCurrentUserState(user);
+    }
+  }, []);
+
+  // Hydration from LocalStorage on mount
   useEffect(() => {
     try {
       if (typeof window !== 'undefined') {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          if (parsed.stats && typeof parsed.stats.balance === 'number') {
-            setStats(parsed.stats);
-          }
-          if (Array.isArray(parsed.transactions)) {
-            setTransactions(parsed.transactions);
-          }
-          if (parsed.adminConfig && typeof parsed.adminConfig.globalRtp === 'number') {
-            setAdminConfig({ ...DEFAULT_ADMIN_CONFIG, ...parsed.adminConfig });
-          }
-          if (typeof parsed.audioEnabled === 'boolean') {
-            setAudioEnabledState(parsed.audioEnabled);
-            synthEngine.setMuted(!parsed.audioEnabled);
-          }
-          if (typeof parsed.masterVolume === 'number') {
-            setMasterVolumeState(parsed.masterVolume);
-            synthEngine.setVolume(parsed.masterVolume);
+        // Load active user session from database
+        const user = userDb.getCurrentUser();
+        setCurrentUserState(user);
+
+        // Load Admin Config
+        const rawAdmin = localStorage.getItem(STORAGE_ADMIN_KEY);
+        if (rawAdmin) {
+          const parsed = JSON.parse(rawAdmin);
+          if (parsed && typeof parsed.globalRtp === 'number') {
+            setAdminConfig({ ...DEFAULT_ADMIN_CONFIG, ...parsed });
           }
         }
       }
     } catch (e) {
-      console.warn('LocalStorage hydration note:', e);
+      console.warn('GameContext hydration note:', e);
     } finally {
       setIsHydrated(true);
     }
   }, []);
 
-  // Save to LocalStorage on changes
+  // Save Admin Config changes
   useEffect(() => {
     if (!isHydrated || typeof window === 'undefined') return;
     try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({
-          stats,
-          transactions,
-          adminConfig,
-          audioEnabled,
-          masterVolume,
-        })
-      );
+      localStorage.setItem(STORAGE_ADMIN_KEY, JSON.stringify(adminConfig));
     } catch (e) {
-      console.warn('LocalStorage save failed:', e);
+      console.warn('Failed to save admin config:', e);
     }
-  }, [stats, transactions, adminConfig, audioEnabled, masterVolume, isHydrated]);
+  }, [adminConfig, isHydrated]);
 
-  // Set audio enabled
+  // Auth Helpers
+  const openAuthModal = useCallback((tab: 'login' | 'register' = 'login') => {
+    setAuthModalTab(tab);
+    setIsAuthModalOpen(true);
+  }, []);
+
+  const closeAuthModal = useCallback(() => {
+    setIsAuthModalOpen(false);
+  }, []);
+
+  const login = useCallback((username: string, password: string) => {
+    const result = userDb.login(username, password);
+    if (result.success && result.user) {
+      setCurrentUserState(result.user);
+      synthEngine.playWin(1);
+    }
+    return result;
+  }, []);
+
+  const register = useCallback((username: string, password: string, name?: string) => {
+    const result = userDb.register(username, password, name);
+    if (result.success && result.user) {
+      setCurrentUserState(result.user);
+      synthEngine.playJackpot();
+    }
+    return result;
+  }, []);
+
+  const logout = useCallback(() => {
+    userDb.logout();
+    setCurrentUserState(null);
+    synthEngine.playCoin();
+  }, []);
+
+  // Audio Controls
   const setAudioEnabled = useCallback((enabled: boolean) => {
     setAudioEnabledState(enabled);
     synthEngine.setMuted(!enabled);
@@ -205,67 +218,92 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     synthEngine.setVolume(clamped);
   }, []);
 
-  // Update balance helper (direct addition/subtraction)
-  const updateBalance = useCallback(
-    (amount: number, game: string, details?: string | Record<string, unknown>): boolean => {
-      if (amount < 0 && stats.balance < Math.abs(amount)) {
-        return false; // Insufficient balance
-      }
+  // Balance & Betting Engine
+  const balance = currentUser?.balance || 0;
+  const totalWagered = currentUser?.totalWagered || 0;
+  const totalWon = currentUser?.totalWon || 0;
+  const totalLost = currentUser?.totalLost || 0;
+  const transactions = currentUser?.transactions || [];
 
-      setStats((prev) => {
-        const newBalance = Math.max(0, prev.balance + amount);
-        const isDeduction = amount < 0;
-        const absAmount = Math.abs(amount);
+  const stats = useMemo<UserStats>(() => {
+    if (!currentUser) {
+      return {
+        balance: 0,
+        totalDeposited: 0,
+        totalWagered: 0,
+        totalWon: 0,
+        totalLost: 0,
+        roundsPlayed: 0,
+        faucetClaims: 0,
+        highestWin: 0,
+        netProfit: 0,
+      };
+    }
+    return {
+      balance: currentUser.balance,
+      totalDeposited: 100_000 + currentUser.faucetClaims * 500_000,
+      totalWagered: currentUser.totalWagered,
+      totalWon: currentUser.totalWon,
+      totalLost: currentUser.totalLost,
+      roundsPlayed: currentUser.roundsPlayed,
+      faucetClaims: currentUser.faucetClaims,
+      highestWin: 0,
+      netProfit: currentUser.totalWon - currentUser.totalWagered,
+    };
+  }, [currentUser]);
 
-        return {
-          ...prev,
-          balance: newBalance,
-          totalWagered: isDeduction ? prev.totalWagered + absAmount : prev.totalWagered,
-          totalWon: !isDeduction ? prev.totalWon + amount : prev.totalWon,
-          totalLost: isDeduction ? prev.totalLost : prev.totalLost,
-          netProfit: (!isDeduction ? prev.totalWon + amount : prev.totalWon) - 
-                     (isDeduction ? prev.totalWagered + absAmount : prev.totalWagered),
-        };
-      });
-
-      if (amount < 0) {
-        synthEngine.playCoin();
-      } else if (amount > 0) {
-        synthEngine.playWin(1);
-      }
-
-      return true;
-    },
-    [stats.balance]
-  );
-
-  // Place Bet
+  // Place Bet (Requires Auth)
   const placeBet = useCallback(
     (gameType: string, amount: number, details: string = ''): boolean => {
-      if (amount <= 0 || stats.balance < amount) {
+      if (!currentUser) {
+        // Force login prompt
+        openAuthModal('login');
         return false;
       }
 
-      setStats((prev) => ({
-        ...prev,
-        balance: prev.balance - amount,
-        totalWagered: prev.totalWagered + amount,
-        roundsPlayed: prev.roundsPlayed + 1,
-        netProfit: prev.totalWon - (prev.totalWagered + amount),
-      }));
+      if (amount <= 0 || currentUser.balance < amount) {
+        return false;
+      }
+
+      // Deduct balance from user
+      const updatedUser = userDb.updateUserStats(
+        currentUser.id,
+        -amount,
+        amount,
+        0,
+        {
+          id: `tx_${Date.now()}_bet`,
+          timestamp: Date.now(),
+          gameType,
+          gameTitle: gameType,
+          betAmount: amount,
+          multiplier: 0,
+          payout: 0,
+          netProfit: -amount,
+          balanceAfter: currentUser.balance - amount,
+          isWin: false,
+          details: details || `Taruhan ${gameType}`,
+          riggedApplied: false,
+        }
+      );
+
+      if (updatedUser) {
+        setCurrentUserState({ ...updatedUser });
+      }
 
       synthEngine.playCoin();
       return true;
     },
-    [stats.balance]
+    [currentUser, openAuthModal]
   );
 
-  // Settle Bet and add to ledger
+  // Settle Bet and add to user database
   const settleBet = useCallback(
     (payload: SettleBetPayload): Transaction => {
       const isWin = payload.payout > 0;
       const net = payload.payout - payload.betAmount;
-      const newBalance = stats.balance + payload.payout;
+      const currentBal = currentUser?.balance || 0;
+      const newBalance = currentBal + payload.payout;
 
       const tx: Transaction = {
         id: `tx_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`,
@@ -280,19 +318,20 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isWin,
         details: payload.details,
         riggedApplied: !!payload.riggedApplied,
-        houseEdgeRate: 1 - adminConfig.globalRtp / 100,
       };
 
-      setStats((prev) => ({
-        ...prev,
-        balance: newBalance,
-        totalWon: prev.totalWon + payload.payout,
-        totalLost: prev.totalLost + (isWin ? 0 : payload.betAmount),
-        highestWin: Math.max(prev.highestWin, payload.payout),
-        netProfit: prev.totalWon + payload.payout - prev.totalWagered,
-      }));
-
-      setTransactions((prev) => [tx, ...prev].slice(0, 150));
+      if (currentUser) {
+        const updatedUser = userDb.updateUserStats(
+          currentUser.id,
+          payload.payout,
+          0,
+          payload.payout,
+          tx
+        );
+        if (updatedUser) {
+          setCurrentUserState({ ...updatedUser });
+        }
+      }
 
       // Audio feedback
       if (isWin) {
@@ -305,30 +344,72 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       return tx;
     },
-    [stats.balance, adminConfig.globalRtp]
+    [currentUser]
   );
 
-  // Claim Faucet (+1,000,000 IDR default)
-  const claimFaucet = useCallback((amount: number = 1_000_000) => {
-    setStats((prev) => ({
-      ...prev,
-      balance: prev.balance + amount,
-      totalDeposited: prev.totalDeposited + amount,
-      faucetClaims: prev.faucetClaims + 1,
-    }));
-    synthEngine.playWin(2);
-  }, []);
+  // Update balance helper
+  const updateBalance = useCallback(
+    (amount: number, game: string, details?: string | Record<string, unknown>): boolean => {
+      if (!currentUser) {
+        openAuthModal('login');
+        return false;
+      }
+      if (amount < 0 && currentUser.balance < Math.abs(amount)) {
+        return false;
+      }
 
-  // Reset all state to defaults
+      const tx: Transaction = {
+        id: `tx_${Date.now()}`,
+        timestamp: Date.now(),
+        gameType: game,
+        gameTitle: game,
+        betAmount: amount < 0 ? Math.abs(amount) : 0,
+        multiplier: 1,
+        payout: amount > 0 ? amount : 0,
+        netProfit: amount,
+        balanceAfter: currentUser.balance + amount,
+        isWin: amount > 0,
+        details: typeof details === 'string' ? details : 'Update saldo manual',
+      };
+
+      const updated = userDb.updateUserStats(
+        currentUser.id,
+        amount,
+        amount < 0 ? Math.abs(amount) : 0,
+        amount > 0 ? amount : 0,
+        tx
+      );
+      if (updated) {
+        setCurrentUserState({ ...updated });
+      }
+      return true;
+    },
+    [currentUser, openAuthModal]
+  );
+
+  // Claim Faucet (+500,000 IDR for active user)
+  const claimFaucet = useCallback(
+    (amount: number = 500_000) => {
+      if (!currentUser) {
+        openAuthModal('login');
+        return;
+      }
+      const updated = userDb.claimUserFaucet(currentUser.id, amount);
+      if (updated) {
+        setCurrentUserState({ ...updated });
+      }
+      synthEngine.playWin(2);
+    },
+    [currentUser, openAuthModal]
+  );
+
+  // Reset all data
   const resetAllData = useCallback(() => {
-    setStats(DEFAULT_STATS);
-    setTransactions([]);
-    setAdminConfig(DEFAULT_ADMIN_CONFIG);
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem(STORAGE_KEY);
+    if (currentUser) {
+      userDb.adminSetUserBalance(currentUser.id, 100_000);
+      refreshUser();
     }
-    synthEngine.playCoin();
-  }, []);
+  }, [currentUser, refreshUser]);
 
   // Update Admin Rigged Configuration
   const updateAdminConfig = useCallback((config: Partial<AdminConfig>) => {
@@ -340,10 +421,21 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const value = useMemo<GameContextType>(
     () => ({
-      balance: stats.balance,
-      totalWagered: stats.totalWagered,
-      totalWon: stats.totalWon,
-      totalLost: stats.totalLost,
+      currentUser,
+      isLoggedIn: !!currentUser,
+      isAuthModalOpen,
+      authModalTab,
+      openAuthModal,
+      closeAuthModal,
+      login,
+      register,
+      logout,
+      refreshUser,
+
+      balance,
+      totalWagered,
+      totalWon,
+      totalLost,
       transactions,
       audioEnabled,
       adminConfig,
@@ -363,10 +455,23 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
       updateAdminConfig,
     }),
     [
-      stats,
+      currentUser,
+      isAuthModalOpen,
+      authModalTab,
+      openAuthModal,
+      closeAuthModal,
+      login,
+      register,
+      logout,
+      refreshUser,
+      balance,
+      totalWagered,
+      totalWon,
+      totalLost,
       transactions,
       audioEnabled,
       adminConfig,
+      stats,
       masterVolume,
       isHydrated,
       setAudioEnabled,

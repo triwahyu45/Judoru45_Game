@@ -22,6 +22,7 @@ import {
   LogOut,
   Layers,
   Activity,
+  Users,
 } from 'lucide-react';
 import { useGame, RiggedProfile, ForcedOutcome } from '@/lib/context/GameContext';
 import { formatIDR } from '@/lib/utils/currency';
@@ -32,6 +33,7 @@ import { AdminLossConverter } from '@/components/admin/AdminLossConverter';
 import { AdminPsychCodex } from '@/components/admin/AdminPsychCodex';
 import { AdminAuditLedger } from '@/components/admin/AdminAuditLedger';
 import { AdminQuickActions } from '@/components/admin/AdminQuickActions';
+import { AdminUserManagement } from '@/components/admin/AdminUserManagement';
 import { RiggedProfileType, ForcedOutcomeType } from '@/lib/math/riggedEngine';
 
 export default function AdminPage() {
@@ -46,7 +48,7 @@ export default function AdminPage() {
   } = useGame();
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<'controls' | 'loss' | 'psychology' | 'audit'>('controls');
+  const [activeTab, setActiveTab] = useState<'controls' | 'users' | 'loss' | 'psychology' | 'audit'>('controls');
   const [notification, setNotification] = useState<string | null>(null);
 
   // Check session storage on mount
@@ -216,6 +218,19 @@ export default function AdminPage() {
 
         <button
           type="button"
+          onClick={() => setActiveTab('users')}
+          className={`flex items-center space-x-2 px-4 py-3 border-b-2 text-xs font-bold whitespace-nowrap transition ${
+            activeTab === 'users'
+              ? 'border-purple-500 text-purple-300 bg-purple-950/20'
+              : 'border-transparent text-slate-400 hover:text-white hover:border-slate-600'
+          }`}
+        >
+          <Users className="w-4 h-4 text-purple-400" />
+          <span>Database Pemain (Per-User Rigging)</span>
+        </button>
+
+        <button
+          type="button"
           onClick={() => setActiveTab('loss')}
           className={`flex items-center space-x-2 px-4 py-3 border-b-2 text-xs font-bold whitespace-nowrap transition ${
             activeTab === 'loss'
@@ -300,6 +315,8 @@ export default function AdminPage() {
           />
         </div>
       )}
+
+      {activeTab === 'users' && <AdminUserManagement />}
 
       {activeTab === 'loss' && (
         <AdminLossConverter
