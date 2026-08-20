@@ -92,7 +92,6 @@ export const Navbar: React.FC = () => {
     { href: '/dice', label: 'Dice', icon: Dices },
     { href: '/togel', label: 'Togel', icon: Ticket },
     { href: '/sports', label: 'Sports', icon: Trophy },
-    { href: '/edukasi', label: 'Rahasia', icon: Brain },
   ];
 
   return (

@@ -176,15 +176,6 @@ export default function HomePage() {
                 <Sparkles className="w-4 h-4 text-amber-400" />
                 <span>🎁 Klaim Saldo Bonus Gratis</span>
               </button>
-
-              <button
-                type="button"
-                onClick={() => setIsRealityCheckOpen(true)}
-                className="px-3 py-3 rounded-2xl bg-red-950/30 hover:bg-red-950/60 border border-red-500/30 text-red-300 text-xs font-semibold flex items-center space-x-1.5 transition"
-                title="Bongkar Fakta & Trik di Balik Algoritma Bandar"
-              >
-                <span>💡 Fakta Rahasia Bandar</span>
-              </button>
             </div>
           </div>
 
@@ -310,13 +301,6 @@ export default function HomePage() {
               Daftar kemenangan jackpot virtual pemain secara real-time di seluruh arena
             </p>
           </div>
-          <Link
-            href="/edukasi"
-            className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-[#0B111B] border border-slate-700 hover:border-amber-400 text-slate-400 hover:text-amber-300 text-xs font-semibold transition"
-          >
-            <span>💡 Rahasia Dapur Bandar</span>
-            <span>&rarr;</span>
-          </Link>
         </div>
 
         {/* Live Winners Ticker */}
