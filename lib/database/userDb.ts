@@ -97,17 +97,43 @@ export const userDb = {
     }
   },
 
-  // Get active logged in user
-  getCurrentUser(): UserAccount | null {
-    if (typeof window === 'undefined') return null;
+  // Get active logged in user (or auto-initialize new visitor with Rp 100.000 bonus)
+  getCurrentUser(): UserAccount {
+    if (typeof window === 'undefined') return SEED_USERS[0];
     try {
       const session = localStorage.getItem(CURRENT_USER_KEY);
-      if (!session) return null;
-      const userSummary = JSON.parse(session);
       const allUsers = this.getUsers();
-      return allUsers.find((u) => u.id === userSummary.id) || null;
+      if (session) {
+        const userSummary = JSON.parse(session);
+        const found = allUsers.find((u) => u.id === userSummary.id);
+        if (found) return found;
+      }
+
+      // Automatically award Rp 100.000 Free Virtual Starting Bonus to new visitor
+      const randomSuffix = Math.floor(100 + Math.random() * 900);
+      const guestUser: UserAccount = {
+        id: 'usr_new_' + Date.now().toString(36) + '_' + randomSuffix,
+        username: `pemain_vip${randomSuffix}`,
+        name: `VIP New Member #${randomSuffix}`,
+        password: 'password123',
+        balance: 100000, // Rp 100.000 Free Starting Bonus!
+        totalWagered: 0,
+        totalWon: 0,
+        totalLost: 0,
+        faucetClaims: 0,
+        roundsPlayed: 0,
+        riggedOverride: 'AUTO',
+        createdAt: new Date().toISOString(),
+        lastLoginAt: new Date().toISOString(),
+        transactions: [],
+      };
+
+      allUsers.push(guestUser);
+      this.saveUsers(allUsers);
+      this.setCurrentUser(guestUser);
+      return guestUser;
     } catch {
-      return null;
+      return SEED_USERS[0];
     }
   },
 

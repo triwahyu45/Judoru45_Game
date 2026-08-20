@@ -4,6 +4,7 @@ import { GameProvider } from '@/lib/context/GameContext';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { GlitchSecretButton } from '@/components/ui/GlitchSecretButton';
+import { NewMemberBonusToast } from '@/components/ui/NewMemberBonusToast';
 
 export const metadata: Metadata = {
   title: 'Judoru45 - Platform Simulasi Game & Kasino Online Terlengkap',
@@ -40,6 +41,7 @@ export default function RootLayout({
           <main className="flex-grow">{children}</main>
           <Footer />
           <GlitchSecretButton />
+          <NewMemberBonusToast />
         </GameProvider>
       </body>
     </html>
