@@ -1,0 +1,454 @@
+'use client';
+
+import React, { useState } from 'react';
+import {
+  X,
+  Heart,
+  QrCode,
+  CreditCard,
+  Coins,
+  Copy,
+  Check,
+  ExternalLink,
+  Download,
+  GraduationCap,
+  Sparkles,
+  ShieldCheck,
+  Coffee,
+  Globe,
+  Wallet,
+} from 'lucide-react';
+import { formatIDR } from '@/lib/utils/currency';
+
+interface DonationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export const DonationModal: React.FC<DonationModalProps> = ({ isOpen, onClose }) => {
+  const [activeTab, setActiveTab] = useState<'saweria' | 'trakteer' | 'qris' | 'paypal' | 'crypto'>('saweria');
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [cendolCount, setCendolCount] = useState<number>(5);
+
+  if (!isOpen) return null;
+
+  const copyToClipboard = (text: string, key: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedKey(key);
+    setTimeout(() => setCopiedKey(null), 2500);
+  };
+
+  const handleDownloadQris = () => {
+    // Generate simple SVG QR download
+    const svgElement = document.getElementById('qris-svg-mockup');
+    if (!svgElement) return;
+
+    const svgString = new XMLSerializer().serializeToString(svgElement);
+    const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const downloadAnchor = document.createElement('a');
+    downloadAnchor.setAttribute('href', url);
+    downloadAnchor.setAttribute('download', 'QRIS_Judoru45_TriWahyu_UNY.svg');
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
+      <div
+        className="w-full max-w-2xl bg-[#0B111B] border border-amber-500/40 rounded-3xl shadow-[0_0_50px_rgba(245,158,11,0.2)] overflow-hidden flex flex-col max-h-[90vh]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="p-6 border-b border-[#1E2D44] flex items-center justify-between bg-[#070D18]">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center">
+              <Heart className="w-5 h-5 fill-amber-400" />
+            </div>
+            <div>
+              <h2 className="text-lg font-black text-white tracking-tight flex items-center space-x-2">
+                <span>Dukungan & Apresiasi Karya</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase">
+                  100% Nirlaba
+                </span>
+              </h2>
+              <p className="text-xs text-slate-400">
+                Dukung pengembangan platform edukasi anti-judi online Judoru45
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Channel Navigation Tabs */}
+        <div className="flex border-b border-[#1E2D44] bg-[#05070B] overflow-x-auto px-4 pt-2">
+          {[
+            { id: 'saweria', label: 'Saweria', icon: Sparkles },
+            { id: 'trakteer', label: 'Trakteer', icon: Coffee },
+            { id: 'qris', label: 'QRIS Universal', icon: QrCode },
+            { id: 'paypal', label: 'PayPal / Ko-fi', icon: Globe },
+            { id: 'crypto', label: 'Kripto / Web3', icon: Wallet },
+          ].map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                className={`flex items-center space-x-2 px-4 py-2.5 border-b-2 text-xs font-bold whitespace-nowrap transition ${
+                  isActive
+                    ? 'border-amber-400 text-amber-300 bg-amber-500/10'
+                    : 'border-transparent text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Tab Content Body (Scrollable) */}
+        <div className="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
+          
+          {/* SAWERIA TAB */}
+          {activeTab === 'saweria' && (
+            <div className="space-y-5">
+              <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 flex items-center justify-between">
+                <div>
+                  <div className="font-bold text-sm text-white">Saweria Indonesia</div>
+                  <div className="text-[11px] text-amber-300">Dukungan instan via QRIS, GoPay, OVO, DANA, ShopeePay</div>
+                </div>
+                <span className="font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-amber-500/20 border border-amber-500/40">
+                  saweria.co/triwahyu45
+                </span>
+              </div>
+
+              <div className="space-y-2">
+                <span className="font-bold text-slate-300">Pilihan Nominal Cepat:</span>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  {[
+                    { label: 'Rp 10.000', note: '1 Porsi Nasi' },
+                    { label: 'Rp 25.000', note: 'Kopi Semangat' },
+                    { label: 'Rp 50.000', note: 'Sewa Server' },
+                    { label: 'Rp 100.000', note: 'Advokasi Edukasi' },
+                  ].map((p) => (
+                    <a
+                      key={p.label}
+                      href="https://saweria.co/triwahyu45"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 rounded-xl bg-[#05070B] border border-[#1E2D44] hover:border-amber-400 hover:bg-[#121B2A] transition text-center space-y-0.5"
+                    >
+                      <div className="font-bold text-white text-xs">{p.label}</div>
+                      <div className="text-[10px] text-slate-400">{p.note}</div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <a
+                  href="https://saweria.co/triwahyu45"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-3 px-4 rounded-xl btn-gold text-black font-bold text-xs flex items-center justify-center space-x-2"
+                >
+                  <span>Buka Portal Saweria</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard('https://saweria.co/triwahyu45', 'saweria')}
+                  className="py-3 px-4 rounded-xl bg-[#05070B] border border-[#1E2D44] hover:border-slate-500 text-slate-300 text-xs font-semibold flex items-center space-x-2 transition"
+                >
+                  {copiedKey === 'saweria' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                  <span>{copiedKey === 'saweria' ? 'Tersalin!' : 'Salin Link'}</span>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* TRAKTEER TAB */}
+          {activeTab === 'trakteer' && (
+            <div className="space-y-5">
+              <div className="p-4 rounded-2xl bg-red-950/20 border border-red-500/30 text-red-200 flex items-center justify-between">
+                <div>
+                  <div className="font-bold text-sm text-white">Trakteer Cendol</div>
+                  <div className="text-[11px] text-red-300">Traktir pengembang dengan segelas Cendol digital (@ Rp 5.000)</div>
+                </div>
+                <span className="font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-red-500/20 border border-red-500/40">
+                  trakteer.id/triwahyu45
+                </span>
+              </div>
+
+              {/* Interactive Cendol Counter */}
+              <div className="p-5 rounded-2xl bg-[#05070B] border border-[#1E2D44] space-y-4 text-center">
+                <div className="flex items-center justify-center space-x-2 text-slate-300">
+                  <Coffee className="w-5 h-5 text-amber-400" />
+                  <span className="font-bold text-sm">Pilih Jumlah Cendol:</span>
+                </div>
+
+                <div className="flex items-center justify-center space-x-4">
+                  <button
+                    type="button"
+                    onClick={() => setCendolCount(Math.max(1, cendolCount - 1))}
+                    className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-lg"
+                  >
+                    -
+                  </button>
+                  <div className="text-3xl font-black font-mono text-amber-400 w-20">
+                    {cendolCount} 🥤
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setCendolCount(Math.min(50, cendolCount + 1))}
+                    className="w-10 h-10 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-lg"
+                  >
+                    +
+                  </button>
+                </div>
+
+                <div className="text-xs text-slate-400 font-mono">
+                  Total Nilai Dukungan: <strong className="text-white text-sm">{formatIDR(cendolCount * 5000)}</strong>
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <a
+                  href={`https://trakteer.id/triwahyu45`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white font-bold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-red-600/20"
+                >
+                  <span>Traktir {cendolCount} Cendol Sekarang</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          )}
+
+          {/* QRIS TAB */}
+          {activeTab === 'qris' && (
+            <div className="space-y-5">
+              <div className="flex flex-col sm:flex-row items-center gap-6 p-6 rounded-2xl bg-[#05070B] border border-[#1E2D44]">
+                
+                {/* SVG QRIS Mockup */}
+                <div className="p-4 bg-white rounded-2xl shadow-xl flex flex-col items-center space-y-2 flex-shrink-0">
+                  <div className="text-[10px] font-black text-slate-900 tracking-wider">
+                    QRIS UNIVERSAL INDONESIA
+                  </div>
+
+                  <svg
+                    id="qris-svg-mockup"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 160 160"
+                    className="w-40 h-40"
+                  >
+                    <rect width="160" height="160" fill="#ffffff" />
+                    {/* Corner 1 */}
+                    <rect x="10" y="10" width="40" height="40" fill="#000000" />
+                    <rect x="16" y="16" width="28" height="28" fill="#ffffff" />
+                    <rect x="22" y="22" width="16" height="16" fill="#000000" />
+                    {/* Corner 2 */}
+                    <rect x="110" y="10" width="40" height="40" fill="#000000" />
+                    <rect x="116" y="16" width="28" height="28" fill="#ffffff" />
+                    <rect x="122" y="22" width="16" height="16" fill="#000000" />
+                    {/* Corner 3 */}
+                    <rect x="10" y="110" width="40" height="40" fill="#000000" />
+                    <rect x="16" y="116" width="28" height="28" fill="#ffffff" />
+                    <rect x="22" y="122" width="16" height="16" fill="#000000" />
+                    {/* Center decorative pattern */}
+                    <rect x="60" y="20" width="10" height="10" fill="#000000" />
+                    <rect x="80" y="30" width="10" height="10" fill="#000000" />
+                    <rect x="60" y="60" width="40" height="40" fill="#000000" />
+                    <rect x="70" y="70" width="20" height="20" fill="#ffffff" />
+                    <rect x="75" y="75" width="10" height="10" fill="#000000" />
+                    <rect x="110" y="60" width="20" height="10" fill="#000000" />
+                    <rect x="130" y="80" width="10" height="20" fill="#000000" />
+                    <rect x="20" y="70" width="20" height="10" fill="#000000" />
+                    <rect x="60" y="110" width="10" height="30" fill="#000000" />
+                    <rect x="80" y="120" width="20" height="10" fill="#000000" />
+                    <rect x="110" y="110" width="30" height="10" fill="#000000" />
+                    <rect x="130" y="130" width="20" height="20" fill="#000000" />
+                  </svg>
+
+                  <div className="text-[9px] font-mono text-slate-600 font-bold">
+                    NMID: ID1020264545999
+                  </div>
+                </div>
+
+                {/* Details & Compatible Apps */}
+                <div className="space-y-3 flex-1">
+                  <div>
+                    <h3 className="text-sm font-bold text-white">Merchant: JUDORU45 EDUKASI UNY</h3>
+                    <p className="text-[11px] text-slate-400">
+                      Menerima pembayaran dari seluruh aplikasi M-Banking & E-Wallet di Indonesia.
+                    </p>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-[#0B111B] border border-[#1E2D44] text-[10px] text-slate-300 space-y-1">
+                    <div className="font-bold text-amber-300">Kompatibel Dengan:</div>
+                    <p className="text-slate-400 leading-snug">
+                      BCA Mobile, Mandiri Livin&apos;, BRImo, BNI Mobile, CIMB Octo, GoPay, OVO, DANA, ShopeePay, LinkAja.
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleDownloadQris}
+                    className="w-full py-2.5 px-4 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-bold flex items-center justify-center space-x-2 transition"
+                  >
+                    <Download className="w-4 h-4" />
+                    <span>Unduh Gambar QRIS (SVG)</span>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          )}
+
+          {/* PAYPAL & KO-FI TAB */}
+          {activeTab === 'paypal' && (
+            <div className="space-y-5">
+              <div className="p-4 rounded-2xl bg-blue-950/20 border border-blue-500/30 text-blue-200 space-y-2">
+                <div className="font-bold text-sm text-white">International Backers (USD / EUR)</div>
+                <div className="text-[11px] text-slate-300 leading-relaxed">
+                  Bagi pendukung atau akademisi internasional yang ingin berkontribusi dalam riset advokasi bahaya judi online.
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* PayPal */}
+                <div className="p-4 rounded-2xl bg-[#05070B] border border-[#1E2D44] space-y-3">
+                  <div className="font-bold text-white text-sm flex items-center justify-between">
+                    <span>PayPal International</span>
+                    <span className="text-[10px] text-blue-400 font-mono">paypal.me</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    Dukungan fleksibel melalui kartu debit/kredit internasional atau saldo PayPal.
+                  </p>
+                  <a
+                    href="https://paypal.me/triwahyu45"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center space-x-1.5 transition"
+                  >
+                    <span>Kunjungi PayPal.me</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+
+                {/* Ko-fi */}
+                <div className="p-4 rounded-2xl bg-[#05070B] border border-[#1E2D44] space-y-3">
+                  <div className="font-bold text-white text-sm flex items-center justify-between">
+                    <span>Ko-fi Page</span>
+                    <span className="text-[10px] text-amber-400 font-mono">ko-fi.com</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    Beli segelas kopi virtual untuk mendukung operasional server Judoru45.
+                  </p>
+                  <a
+                    href="https://ko-fi.com/triwahyu45"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold text-xs flex items-center justify-center space-x-1.5 transition"
+                  >
+                    <span>Kunjungi Ko-fi.com</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* CRYPTO TAB */}
+          {activeTab === 'crypto' && (
+            <div className="space-y-4">
+              {[
+                {
+                  coin: 'Tether (USDT) - TRC20',
+                  address: 'TXJudoru45AntiJudolWeb3Donation7890abc',
+                  key: 'usdt',
+                  network: 'TRON (TRC-20)',
+                },
+                {
+                  coin: 'Bitcoin (BTC)',
+                  address: 'bc1qjudoru45antigamblingtriwahyuny2026xyz',
+                  key: 'btc',
+                  network: 'Bitcoin Mainnet (SegWit)',
+                },
+                {
+                  coin: 'Ethereum (ETH)',
+                  address: '0x4545TriWahyuUNYAntiJudolDonationEthAddress',
+                  key: 'eth',
+                  network: 'Ethereum (ERC-20)',
+                },
+              ].map((item) => (
+                <div
+                  key={item.key}
+                  className="p-4 rounded-2xl bg-[#05070B] border border-[#1E2D44] space-y-2"
+                >
+                  <div className="flex justify-between items-center">
+                    <span className="font-bold text-white text-xs">{item.coin}</span>
+                    <span className="text-[10px] font-mono text-purple-400 bg-purple-950/40 px-2 py-0.5 rounded border border-purple-800/40">
+                      {item.network}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      readOnly
+                      value={item.address}
+                      className="flex-1 py-2 px-3 rounded-xl bg-[#0B111B] border border-[#1E2D44] text-[11px] font-mono text-slate-300 select-all outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => copyToClipboard(item.address, item.key)}
+                      className="py-2 px-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold flex items-center space-x-1.5 transition"
+                    >
+                      {copiedKey === item.key ? (
+                        <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      ) : (
+                        <Copy className="w-3.5 h-3.5" />
+                      )}
+                      <span>{copiedKey === item.key ? 'Tersalin!' : 'Salin'}</span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Academic Mission & Attribution Banner */}
+          <div className="p-4 rounded-2xl bg-[#05070B] border border-[#1E2D44] space-y-2">
+            <div className="flex items-center space-x-2 text-cyan-400 font-bold text-xs">
+              <GraduationCap className="w-4 h-4" />
+              <span>Karya Ilmiah Edukatif & Dedikasi Pengembang</span>
+            </div>
+            <p className="text-[11px] text-slate-400 leading-relaxed">
+              Dikembangkan oleh <strong>Tri Wahyu</strong> (NIM: <strong>22518241023</strong>), Mahasiswa Program Studi Pendidikan Teknik Informatika / Rekayasa Perangkat Lunak, <strong>Universitas Negeri Yogyakarta (UNY)</strong>.
+            </p>
+            <p className="text-[10px] text-slate-500 leading-relaxed">
+              Simulasi ini dibuat sebagai kontribusi pengabdian masyarakat untuk memberikan pemahaman logis kepada generasi muda tentang cara kerja algoritma bandar judi online.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DonationModal;
